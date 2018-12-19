@@ -1,4 +1,4 @@
-package com.afgrey.solarlinx.common.responses;
+package me.kraulain.backend.responses;
 
 import io.vertx.ext.web.client.HttpResponse;
 

@@ -1,4 +1,4 @@
-package com.afgrey.solarlinx.common.data;
+package me.kraulain.backend.data;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -11,8 +11,8 @@ import io.vavr.jackson.datatype.VavrModule;
 import io.vertx.core.impl.StringEscapeUtils;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 import java.util.List;
 import java.util.Objects;

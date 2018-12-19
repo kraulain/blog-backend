@@ -1,6 +1,5 @@
-package com.afgrey.solarlinx.common.responses;
+package me.kraulain.backend.responses;
 
-import com.afgrey.solarlinx.common.data.JsonMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vavr.control.Either;
 import io.vavr.control.Option;
@@ -9,10 +8,11 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.client.HttpResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import me.kraulain.backend.data.JsonMapper;
 
 import java.util.List;
 import java.util.Optional;

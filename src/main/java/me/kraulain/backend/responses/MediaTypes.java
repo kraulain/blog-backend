@@ -1,4 +1,4 @@
-package com.afgrey.solarlinx.common.responses;
+package me.kraulain.backend.responses;
 
 import static io.vertx.core.http.HttpHeaders.createOptimized;
 
