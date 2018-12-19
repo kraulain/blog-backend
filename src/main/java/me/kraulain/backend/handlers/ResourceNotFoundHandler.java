@@ -1,13 +1,13 @@
-package com.afgrey.solarlinx.user.handlers;
+package me.kraulain.backend.handlers;
 
-import com.afgrey.solarlinx.common.responses.MediaTypes;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.RoutingContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 import java.time.LocalDateTime;
