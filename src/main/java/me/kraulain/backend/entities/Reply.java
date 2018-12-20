@@ -14,13 +14,14 @@ public class Reply {
 
   public Reply(){}
 
-  public Reply(int id, String userEmail, String name, int replyTo, String body, Date date) {
+  public Reply(int id, String userEmail, String name, int replyTo, String body, Date date, String status) {
     this.id = id;
     this.userEmail = userEmail;
     this.name = name;
     this.replyTo = replyTo;
     this.body = body;
     this.date = date;
+    this.status = status;
   }
 
   public int getId() {

@@ -9,7 +9,7 @@ public class Message {
   private String name;
   private String message;
   private Date date;
-  private String status;
+  private String status = "new"; // read, replied, deleted
 
   public Message(){}
 

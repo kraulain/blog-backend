@@ -13,11 +13,13 @@ public class Comment {
 
   public Comment(){}
 
-  public Comment(int id, String userEmail, String body, Date date) {
-    this.setId(id);
-    this.setUserEmail(userEmail);
-    this.setBody(body);
-    this.setDate(date);
+  public Comment(int id, String userEmail, String name, String body, Date date, String status) {
+    this.id = id;
+    this.userEmail = userEmail;
+    this.name = name;
+    this.body = body;
+    this.date = date;
+    this.status = status;
   }
 
   public int getId() {
