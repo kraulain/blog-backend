@@ -4,20 +4,20 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Article {
-  int id;
-  String title;
-  String body;
-  Date date;
-  String Status = "unpublished";
+  private int id;
+  private String title;
+  private String body;
+  private Date date;
+  private String Status = "unpublished";
 
   public Article(){}
 
   public Article(int id, String title, String body, Date date, String status) {
-    this.id = id;
-    this.title = title;
-    this.body = body;
-    this.date = date;
-    Status = status;
+    this.setId(id);
+    this.setTitle(title);
+    this.setBody(body);
+    this.setDate(date);
+    setStatus(status);
   }
 
   public int getId() {
@@ -63,10 +63,10 @@ public class Article {
   @Override
   public String toString() {
     return "Article{" +
-      "id=" + id +
-      ", title='" + title + '\'' +
-      ", date=" + date +
-      ", Status='" + Status + '\'' +
+      "id=" + getId() +
+      ", title='" + getTitle() + '\'' +
+      ", date=" + getDate() +
+      ", Status='" + getStatus() + '\'' +
       '}';
   }
 
