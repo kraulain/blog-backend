@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Comment {
   private int id;
   private String userEmail;
+  private String name;
   private String body;
   private Date date;
 
@@ -32,6 +33,14 @@ public class Comment {
 
   public void setUserEmail(String userEmail) {
     this.userEmail = userEmail;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getBody() {
@@ -74,4 +83,5 @@ public class Comment {
   public int hashCode() {
     return Objects.hash(getId(), getUserEmail(), getBody(), getDate());
   }
+
 }
