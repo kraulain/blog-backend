@@ -9,6 +9,7 @@ public class Comment {
   private String name;
   private String body;
   private Date date;
+  private String status = "created"; // deleted
 
   public Comment(){}
 
@@ -57,6 +58,14 @@ public class Comment {
 
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   @Override

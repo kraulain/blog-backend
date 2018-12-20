@@ -10,6 +10,7 @@ public class Reply {
   private int replyTo;
   private String body;
   private Date date;
+  private String status = "created"; // deleted
 
   public Reply(){}
 
@@ -68,6 +69,14 @@ public class Reply {
 
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   @Override

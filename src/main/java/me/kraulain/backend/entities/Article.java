@@ -8,7 +8,7 @@ public class Article {
   private String title;
   private String body;
   private Date date;
-  private String Status = "unpublished";
+  private String Status = "draft"; // published, deleted
 
   public Article(){}
 
