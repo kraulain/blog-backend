@@ -38,3 +38,5 @@ generated/
 
 credentials.yml
 credentials.yaml
+
+db/
