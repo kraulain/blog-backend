@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Article {
   private int id;
   private String title;
+  private String subTitle;
   private String imageUrl;
   private String body;
   private Date date;
@@ -13,9 +14,10 @@ public class Article {
 
   public Article(){}
 
-  public Article(int id, String title, String imageUrl, String body, Date date, String status) {
+  public Article(int id, String title, String subtitle, String imageUrl, String body, Date date, String status) {
     this.id = id;
     this.title = title;
+    this.subTitle = subtitle;
     this.imageUrl = imageUrl;
     this.body = body;
     this.date = date;
@@ -36,6 +38,22 @@ public class Article {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getSubTitle() {
+    return subTitle;
+  }
+
+  public void setSubTitle(String subTitle) {
+    this.subTitle = subTitle;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   public String getBody() {
@@ -67,6 +85,7 @@ public class Article {
     return "Article{" +
       "id=" + id +
       ", title='" + title + '\'' +
+      ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", date=" + date +
       ", Status='" + Status + '\'' +
@@ -80,7 +99,8 @@ public class Article {
     Article article = (Article) o;
     return getId() == article.getId() &&
       Objects.equals(getTitle(), article.getTitle()) &&
-      Objects.equals(imageUrl, article.imageUrl) &&
+      Objects.equals(getSubTitle(), article.getSubTitle()) &&
+      Objects.equals(getImageUrl(), article.getImageUrl()) &&
       Objects.equals(getBody(), article.getBody()) &&
       Objects.equals(getDate(), article.getDate()) &&
       Objects.equals(getStatus(), article.getStatus());
@@ -88,6 +108,6 @@ public class Article {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), imageUrl, getBody(), getDate(), getStatus());
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getBody(), getDate(), getStatus());
   }
 }

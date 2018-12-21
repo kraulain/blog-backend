@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Course {
   private int id;
   private String title;
+  private String subTitle;
   private String imageUrl;
   private String Description;
   private int[] articles;
@@ -13,9 +14,10 @@ public class Course {
 
   public Course(){}
 
-  public Course(int id, String title, String imageUrl, String description, int[] articles, String status) {
+  public Course(int id, String title, String subTitle, String imageUrl, String description, int[] articles, String status) {
     this.id = id;
     this.title = title;
+    this.subTitle = subTitle;
     this.imageUrl = imageUrl;
     Description = description;
     this.articles = articles;
@@ -36,6 +38,14 @@ public class Course {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getSubTitle() {
+    return subTitle;
+  }
+
+  public void setSubTitle(String subTitle) {
+    this.subTitle = subTitle;
   }
 
   public String getImageUrl() {
@@ -75,6 +85,7 @@ public class Course {
     return "Course{" +
       "id=" + id +
       ", title='" + title + '\'' +
+      ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", articles=" + Arrays.toString(articles) +
       ", Status='" + Status + '\'' +
@@ -88,6 +99,7 @@ public class Course {
     Course course = (Course) o;
     return getId() == course.getId() &&
       Objects.equals(getTitle(), course.getTitle()) &&
+      Objects.equals(getSubTitle(), course.getSubTitle()) &&
       Objects.equals(getImageUrl(), course.getImageUrl()) &&
       Objects.equals(getDescription(), course.getDescription()) &&
       Arrays.equals(getArticles(), course.getArticles()) &&
@@ -96,7 +108,7 @@ public class Course {
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getTitle(), getImageUrl(), getDescription(), getStatus());
+    int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus());
     result = 31 * result + Arrays.hashCode(getArticles());
     return result;
   }
