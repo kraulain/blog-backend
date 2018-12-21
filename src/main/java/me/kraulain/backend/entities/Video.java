@@ -6,16 +6,18 @@ public class Video {
   private int id;
   private String title;
   private String subTitle;
+  private String imageUrl;
   private String youtubeUrl;
   private String description;
   private String Status = "draft"; // published, deleted
 
   public Video(){}
 
-  public Video(int id, String title, String subTitle, String youtubeUrl, String description, String status) {
+  public Video(int id, String title, String subTitle, String imageUrl, String youtubeUrl, String description, String status) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
+    this.imageUrl = imageUrl;
     this.youtubeUrl = youtubeUrl;
     this.description = description;
     Status = status;
@@ -43,6 +45,14 @@ public class Video {
 
   public void setSubTitle(String subTitle) {
     this.subTitle = subTitle;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 
   public String getYoutubeUrl() {
@@ -75,6 +85,7 @@ public class Video {
       "id=" + id +
       ", title='" + title + '\'' +
       ", subTitle='" + subTitle + '\'' +
+      ", imageUrl='" + imageUrl + '\'' +
       ", youtubeUrl='" + youtubeUrl + '\'' +
       ", Status='" + Status + '\'' +
       '}';
@@ -88,6 +99,7 @@ public class Video {
     return getId() == video.getId() &&
       Objects.equals(getTitle(), video.getTitle()) &&
       Objects.equals(getSubTitle(), video.getSubTitle()) &&
+      Objects.equals(getImageUrl(), video.getImageUrl()) &&
       Objects.equals(getYoutubeUrl(), video.getYoutubeUrl()) &&
       Objects.equals(getDescription(), video.getDescription()) &&
       Objects.equals(getStatus(), video.getStatus());
@@ -95,6 +107,6 @@ public class Video {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getSubTitle(), getYoutubeUrl(), getDescription(), getStatus());
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getYoutubeUrl(), getDescription(), getStatus());
   }
 }
