@@ -1,5 +1,7 @@
 package me.kraulain.backend.entities;
 
+import java.util.Objects;
+
 public class Video {
   private int id;
   private String title;
@@ -65,5 +67,34 @@ public class Video {
 
   public void setStatus(String status) {
     Status = status;
+  }
+
+  @Override
+  public String toString() {
+    return "Video{" +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", subTitle='" + subTitle + '\'' +
+      ", youtubeUrl='" + youtubeUrl + '\'' +
+      ", Status='" + Status + '\'' +
+      '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Video video = (Video) o;
+    return getId() == video.getId() &&
+      Objects.equals(getTitle(), video.getTitle()) &&
+      Objects.equals(getSubTitle(), video.getSubTitle()) &&
+      Objects.equals(getYoutubeUrl(), video.getYoutubeUrl()) &&
+      Objects.equals(getDescription(), video.getDescription()) &&
+      Objects.equals(getStatus(), video.getStatus());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getYoutubeUrl(), getDescription(), getStatus());
   }
 }
