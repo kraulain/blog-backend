@@ -6,18 +6,20 @@ import java.util.Objects;
 public class Article {
   private int id;
   private String title;
+  private String imageUrl;
   private String body;
   private Date date;
   private String Status = "draft"; // published, deleted
 
   public Article(){}
 
-  public Article(int id, String title, String body, Date date, String status) {
-    this.setId(id);
-    this.setTitle(title);
-    this.setBody(body);
-    this.setDate(date);
-    setStatus(status);
+  public Article(int id, String title, String imageUrl, String body, Date date, String status) {
+    this.id = id;
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.body = body;
+    this.date = date;
+    Status = status;
   }
 
   public int getId() {
@@ -63,10 +65,11 @@ public class Article {
   @Override
   public String toString() {
     return "Article{" +
-      "id=" + getId() +
-      ", title='" + getTitle() + '\'' +
-      ", date=" + getDate() +
-      ", Status='" + getStatus() + '\'' +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", imageUrl='" + imageUrl + '\'' +
+      ", date=" + date +
+      ", Status='" + Status + '\'' +
       '}';
   }
 
@@ -77,6 +80,7 @@ public class Article {
     Article article = (Article) o;
     return getId() == article.getId() &&
       Objects.equals(getTitle(), article.getTitle()) &&
+      Objects.equals(imageUrl, article.imageUrl) &&
       Objects.equals(getBody(), article.getBody()) &&
       Objects.equals(getDate(), article.getDate()) &&
       Objects.equals(getStatus(), article.getStatus());
@@ -84,6 +88,6 @@ public class Article {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getBody(), getDate(), getStatus());
+    return Objects.hash(getId(), getTitle(), imageUrl, getBody(), getDate(), getStatus());
   }
 }
