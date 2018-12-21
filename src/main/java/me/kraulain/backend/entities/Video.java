@@ -8,6 +8,17 @@ public class Video {
   private String description;
   private String Status = "draft"; // published, deleted
 
+  public Video(){}
+
+  public Video(int id, String title, String subTitle, String youtubeUrl, String description, String status) {
+    this.id = id;
+    this.title = title;
+    this.subTitle = subTitle;
+    this.youtubeUrl = youtubeUrl;
+    this.description = description;
+    Status = status;
+  }
+
   public int getId() {
     return id;
   }
