@@ -11,10 +11,11 @@ public class Book {
   private String description;
   private Date datePublished;
   private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public Book(){}
 
-  public Book(int id, String title, String subtitle, String imageUrl, String description, Date datePublished, String status) {
+  public Book(int id, String title, String subtitle, String imageUrl, String description, Date datePublished, String status, String language) {
     this.id = id;
     this.title = title;
     this.subtitle = subtitle;
@@ -22,6 +23,7 @@ public class Book {
     this.description = description;
     this.datePublished = datePublished;
     Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -80,6 +82,14 @@ public class Book {
     Status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Book{" +
@@ -87,8 +97,10 @@ public class Book {
       ", title='" + title + '\'' +
       ", subtitle='" + subtitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
+      ", description='" + description + '\'' +
       ", datePublished=" + datePublished +
       ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -103,11 +115,12 @@ public class Book {
       Objects.equals(getImageUrl(), book.getImageUrl()) &&
       Objects.equals(getDescription(), book.getDescription()) &&
       Objects.equals(getDatePublished(), book.getDatePublished()) &&
-      Objects.equals(getStatus(), book.getStatus());
+      Objects.equals(getStatus(), book.getStatus()) &&
+      Objects.equals(getLanguage(), book.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getSubtitle(), getImageUrl(), getDescription(), getDatePublished(), getStatus());
+    return Objects.hash(getId(), getTitle(), getSubtitle(), getImageUrl(), getDescription(), getDatePublished(), getStatus(), getLanguage());
   }
 }

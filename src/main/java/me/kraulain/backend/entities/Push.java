@@ -8,16 +8,18 @@ public class Push { // a push notification
   private String imageUrl;
   private String body;
   private String status = "new"; // read, deleted
+  private String language = "en"; // fr, de
 
   public Push() {
   }
 
-  public Push(int id, String title, String imageUrl, String body, String status) {
+  public Push(int id, String title, String imageUrl, String body, String status, String language) {
     this.id = id;
     this.title = title;
     this.imageUrl = imageUrl;
     this.body = body;
     this.status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -60,6 +62,14 @@ public class Push { // a push notification
     this.status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Push{" +
@@ -68,6 +78,7 @@ public class Push { // a push notification
       ", imageUrl='" + imageUrl + '\'' +
       ", body='" + body + '\'' +
       ", status='" + status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -80,11 +91,12 @@ public class Push { // a push notification
       Objects.equals(getTitle(), push.getTitle()) &&
       Objects.equals(getImageUrl(), push.getImageUrl()) &&
       Objects.equals(getBody(), push.getBody()) &&
-      Objects.equals(getStatus(), push.getStatus());
+      Objects.equals(getStatus(), push.getStatus()) &&
+      Objects.equals(getLanguage(), push.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getImageUrl(), getBody(), getStatus());
+    return Objects.hash(getId(), getTitle(), getImageUrl(), getBody(), getStatus(), getLanguage());
   }
 }

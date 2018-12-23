@@ -11,11 +11,12 @@ public class Presentation {
   private String[] slides;
   private String description;
   private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public Presentation() {
   }
 
-  public Presentation(int id, String title, String subTitle, String imageUrl, String[] slides, String description, String status) {
+  public Presentation(int id, String title, String subTitle, String imageUrl, String[] slides, String description, String status, String language) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
@@ -23,6 +24,7 @@ public class Presentation {
     this.slides = slides;
     this.description = description;
     Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -81,6 +83,14 @@ public class Presentation {
     Status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Presentation{" +
@@ -89,7 +99,9 @@ public class Presentation {
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", slides=" + Arrays.toString(slides) +
+      ", description='" + description + '\'' +
       ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -104,12 +116,13 @@ public class Presentation {
       Objects.equals(getImageUrl(), that.getImageUrl()) &&
       Arrays.equals(getSlides(), that.getSlides()) &&
       Objects.equals(getDescription(), that.getDescription()) &&
-      Objects.equals(getStatus(), that.getStatus());
+      Objects.equals(getStatus(), that.getStatus()) &&
+      Objects.equals(getLanguage(), that.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus());
+    int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus(), getLanguage());
     result = 31 * result + Arrays.hashCode(getSlides());
     return result;
   }

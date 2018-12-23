@@ -10,10 +10,11 @@ public class Video {
   private String youtubeUrl;
   private String description;
   private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public Video(){}
 
-  public Video(int id, String title, String subTitle, String imageUrl, String youtubeUrl, String description, String status) {
+  public Video(int id, String title, String subTitle, String imageUrl, String youtubeUrl, String description, String status, String language) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
@@ -21,6 +22,7 @@ public class Video {
     this.youtubeUrl = youtubeUrl;
     this.description = description;
     Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -79,6 +81,14 @@ public class Video {
     Status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Video{" +
@@ -87,7 +97,9 @@ public class Video {
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", youtubeUrl='" + youtubeUrl + '\'' +
+      ", description='" + description + '\'' +
       ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -102,11 +114,12 @@ public class Video {
       Objects.equals(getImageUrl(), video.getImageUrl()) &&
       Objects.equals(getYoutubeUrl(), video.getYoutubeUrl()) &&
       Objects.equals(getDescription(), video.getDescription()) &&
-      Objects.equals(getStatus(), video.getStatus());
+      Objects.equals(getStatus(), video.getStatus()) &&
+      Objects.equals(getLanguage(), video.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getYoutubeUrl(), getDescription(), getStatus());
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getYoutubeUrl(), getDescription(), getStatus(), getLanguage());
   }
 }

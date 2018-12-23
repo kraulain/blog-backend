@@ -11,11 +11,13 @@ public class App {
   private String[] imageUrls;
   private String playStoreUrl;
   private String appStoreUrl;
+  private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public App() {
   }
 
-  public App(int id, String name, String subTitle, String description, String[] imageUrls, String playStoreUrl, String appStoreUrl) {
+  public App(int id, String name, String subTitle, String description, String[] imageUrls, String playStoreUrl, String appStoreUrl, String status, String language) {
     this.id = id;
     this.name = name;
     this.subTitle = subTitle;
@@ -23,6 +25,8 @@ public class App {
     this.imageUrls = imageUrls;
     this.playStoreUrl = playStoreUrl;
     this.appStoreUrl = appStoreUrl;
+    Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -81,15 +85,34 @@ public class App {
     this.appStoreUrl = appStoreUrl;
   }
 
+  public String getStatus() {
+    return Status;
+  }
+
+  public void setStatus(String status) {
+    Status = status;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "App{" +
       "id=" + id +
       ", name='" + name + '\'' +
       ", subTitle='" + subTitle + '\'' +
+      ", description='" + description + '\'' +
       ", imageUrls=" + Arrays.toString(imageUrls) +
       ", playStoreUrl='" + playStoreUrl + '\'' +
       ", appStoreUrl='" + appStoreUrl + '\'' +
+      ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -104,12 +127,14 @@ public class App {
       Objects.equals(getDescription(), app.getDescription()) &&
       Arrays.equals(getImageUrls(), app.getImageUrls()) &&
       Objects.equals(getPlayStoreUrl(), app.getPlayStoreUrl()) &&
-      Objects.equals(getAppStoreUrl(), app.getAppStoreUrl());
+      Objects.equals(getAppStoreUrl(), app.getAppStoreUrl()) &&
+      Objects.equals(getStatus(), app.getStatus()) &&
+      Objects.equals(getLanguage(), app.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getName(), getSubTitle(), getDescription(), getPlayStoreUrl(), getAppStoreUrl());
+    int result = Objects.hash(getId(), getName(), getSubTitle(), getDescription(), getPlayStoreUrl(), getAppStoreUrl(), getStatus(), getLanguage());
     result = 31 * result + Arrays.hashCode(getImageUrls());
     return result;
   }

@@ -7,14 +7,16 @@ public class User {
   private String name;
   private String email;
   private String status = "active"; // inactive
+  private String language = "en"; // fr, de
 
   public User(){}
 
-  public User(int id, String name, String email, String status) {
+  public User(int id, String name, String email, String status, String language) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -49,12 +51,22 @@ public class User {
     this.status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "User{" +
       "id=" + id +
       ", name='" + name + '\'' +
       ", email='" + email + '\'' +
+      ", status='" + status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -65,11 +77,13 @@ public class User {
     User user = (User) o;
     return getId() == user.getId() &&
       Objects.equals(getName(), user.getName()) &&
-      Objects.equals(getEmail(), user.getEmail());
+      Objects.equals(getEmail(), user.getEmail()) &&
+      Objects.equals(getStatus(), user.getStatus()) &&
+      Objects.equals(getLanguage(), user.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getName(), getEmail());
+    return Objects.hash(getId(), getName(), getEmail(), getStatus(), getLanguage());
   }
 }

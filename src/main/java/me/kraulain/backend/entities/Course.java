@@ -11,10 +11,11 @@ public class Course {
   private String Description;
   private int[] articles;
   private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public Course(){}
 
-  public Course(int id, String title, String subTitle, String imageUrl, String description, int[] articles, String status) {
+  public Course(int id, String title, String subTitle, String imageUrl, String description, int[] articles, String status, String language) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
@@ -22,6 +23,7 @@ public class Course {
     Description = description;
     this.articles = articles;
     Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -80,6 +82,14 @@ public class Course {
     Status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Course{" +
@@ -87,8 +97,10 @@ public class Course {
       ", title='" + title + '\'' +
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
+      ", Description='" + Description + '\'' +
       ", articles=" + Arrays.toString(articles) +
       ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -103,12 +115,13 @@ public class Course {
       Objects.equals(getImageUrl(), course.getImageUrl()) &&
       Objects.equals(getDescription(), course.getDescription()) &&
       Arrays.equals(getArticles(), course.getArticles()) &&
-      Objects.equals(getStatus(), course.getStatus());
+      Objects.equals(getStatus(), course.getStatus()) &&
+      Objects.equals(getLanguage(), course.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus());
+    int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus(), getLanguage());
     result = 31 * result + Arrays.hashCode(getArticles());
     return result;
   }

@@ -10,17 +10,19 @@ public class Visit {
   private String browser;
   private String country;
   private String device;
+  private String language = "en"; // fr, de
 
   public Visit() {
   }
 
-  public Visit(int id, Date date, String ip, String browser, String country, String device) {
+  public Visit(int id, Date date, String ip, String browser, String country, String device, String language) {
     this.id = id;
     this.date = date;
     this.ip = ip;
     this.browser = browser;
     this.country = country;
     this.device = device;
+    this.language = language;
   }
 
   public int getId() {
@@ -71,6 +73,14 @@ public class Visit {
     this.device = device;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Visit{" +
@@ -80,6 +90,7 @@ public class Visit {
       ", browser='" + browser + '\'' +
       ", country='" + country + '\'' +
       ", device='" + device + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -93,11 +104,12 @@ public class Visit {
       Objects.equals(getIp(), visit.getIp()) &&
       Objects.equals(getBrowser(), visit.getBrowser()) &&
       Objects.equals(getCountry(), visit.getCountry()) &&
-      Objects.equals(getDevice(), visit.getDevice());
+      Objects.equals(getDevice(), visit.getDevice()) &&
+      Objects.equals(getLanguage(), visit.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getDate(), getIp(), getBrowser(), getCountry(), getDevice());
+    return Objects.hash(getId(), getDate(), getIp(), getBrowser(), getCountry(), getDevice(), getLanguage());
   }
 }

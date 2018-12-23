@@ -10,16 +10,18 @@ public class Comment {
   private String body;
   private Date date;
   private String status = "created"; // deleted
+  private String language = "en"; // fr, de
 
   public Comment(){}
 
-  public Comment(int id, String userEmail, String name, String body, Date date, String status) {
+  public Comment(int id, String userEmail, String name, String body, Date date, String status, String language) {
     this.id = id;
     this.userEmail = userEmail;
     this.name = name;
     this.body = body;
     this.date = date;
     this.status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -70,12 +72,24 @@ public class Comment {
     this.status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Comment{" +
       "id=" + id +
       ", userEmail='" + userEmail + '\'' +
+      ", name='" + name + '\'' +
+      ", body='" + body + '\'' +
       ", date=" + date +
+      ", status='" + status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -86,13 +100,15 @@ public class Comment {
     Comment comment = (Comment) o;
     return getId() == comment.getId() &&
       Objects.equals(getUserEmail(), comment.getUserEmail()) &&
+      Objects.equals(getName(), comment.getName()) &&
       Objects.equals(getBody(), comment.getBody()) &&
-      Objects.equals(getDate(), comment.getDate());
+      Objects.equals(getDate(), comment.getDate()) &&
+      Objects.equals(getStatus(), comment.getStatus()) &&
+      Objects.equals(getLanguage(), comment.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getUserEmail(), getBody(), getDate());
+    return Objects.hash(getId(), getUserEmail(), getName(), getBody(), getDate(), getStatus(), getLanguage());
   }
-
 }

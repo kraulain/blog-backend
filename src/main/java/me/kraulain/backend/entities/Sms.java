@@ -8,15 +8,17 @@ public class Sms {
   private String[] receivers; //recievers phonenumbers
   private String body;
   private String status = "new"; // sent, failed, deleted
+  private String language = "en"; // fr, de
 
   public Sms() {
   }
 
-  public Sms(int id, String[] receivers, String body, String status) {
+  public Sms(int id, String[] receivers, String body, String status, String language) {
     this.id = id;
     this.receivers = receivers;
     this.body = body;
     this.status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -51,6 +53,14 @@ public class Sms {
     this.status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Sms{" +
@@ -58,6 +68,7 @@ public class Sms {
       ", receivers=" + Arrays.toString(receivers) +
       ", body='" + body + '\'' +
       ", status='" + status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -69,12 +80,13 @@ public class Sms {
     return getId() == sms.getId() &&
       Arrays.equals(getReceivers(), sms.getReceivers()) &&
       Objects.equals(getBody(), sms.getBody()) &&
-      Objects.equals(getStatus(), sms.getStatus());
+      Objects.equals(getStatus(), sms.getStatus()) &&
+      Objects.equals(getLanguage(), sms.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getBody(), getStatus());
+    int result = Objects.hash(getId(), getBody(), getStatus(), getLanguage());
     result = 31 * result + Arrays.hashCode(getReceivers());
     return result;
   }

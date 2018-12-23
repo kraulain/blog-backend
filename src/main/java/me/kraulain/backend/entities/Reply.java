@@ -11,10 +11,11 @@ public class Reply {
   private String body;
   private Date date;
   private String status = "created"; // deleted
+  private String language = "en"; // fr, de
 
   public Reply(){}
 
-  public Reply(int id, String userEmail, String name, int replyTo, String body, Date date, String status) {
+  public Reply(int id, String userEmail, String name, int replyTo, String body, Date date, String status, String language) {
     this.id = id;
     this.userEmail = userEmail;
     this.name = name;
@@ -22,6 +23,7 @@ public class Reply {
     this.body = body;
     this.date = date;
     this.status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -80,6 +82,14 @@ public class Reply {
     this.status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Reply{" +
@@ -87,7 +97,10 @@ public class Reply {
       ", userEmail='" + userEmail + '\'' +
       ", name='" + name + '\'' +
       ", replyTo=" + replyTo +
+      ", body='" + body + '\'' +
       ", date=" + date +
+      ", status='" + status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -101,11 +114,13 @@ public class Reply {
       Objects.equals(getUserEmail(), reply.getUserEmail()) &&
       Objects.equals(getName(), reply.getName()) &&
       Objects.equals(getBody(), reply.getBody()) &&
-      Objects.equals(getDate(), reply.getDate());
+      Objects.equals(getDate(), reply.getDate()) &&
+      Objects.equals(getStatus(), reply.getStatus()) &&
+      Objects.equals(getLanguage(), reply.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getUserEmail(), getName(), getReplyTo(), getBody(), getDate());
+    return Objects.hash(getId(), getUserEmail(), getName(), getReplyTo(), getBody(), getDate(), getStatus(), getLanguage());
   }
 }

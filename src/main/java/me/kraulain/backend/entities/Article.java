@@ -11,17 +11,19 @@ public class Article {
   private String body;
   private Date date;
   private String Status = "draft"; // published, deleted
+  private String language = "en"; // fr, de
 
   public Article(){}
 
-  public Article(int id, String title, String subtitle, String imageUrl, String body, Date date, String status) {
+  public Article(int id, String title, String subTitle, String imageUrl, String body, Date date, String status, String language) {
     this.id = id;
     this.title = title;
-    this.subTitle = subtitle;
+    this.subTitle = subTitle;
     this.imageUrl = imageUrl;
     this.body = body;
     this.date = date;
     Status = status;
+    this.language = language;
   }
 
   public int getId() {
@@ -80,6 +82,14 @@ public class Article {
     Status = status;
   }
 
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
   @Override
   public String toString() {
     return "Article{" +
@@ -87,8 +97,10 @@ public class Article {
       ", title='" + title + '\'' +
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
+      ", body='" + body + '\'' +
       ", date=" + date +
       ", Status='" + Status + '\'' +
+      ", language='" + language + '\'' +
       '}';
   }
 
@@ -103,11 +115,12 @@ public class Article {
       Objects.equals(getImageUrl(), article.getImageUrl()) &&
       Objects.equals(getBody(), article.getBody()) &&
       Objects.equals(getDate(), article.getDate()) &&
-      Objects.equals(getStatus(), article.getStatus());
+      Objects.equals(getStatus(), article.getStatus()) &&
+      Objects.equals(getLanguage(), article.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getBody(), getDate(), getStatus());
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getBody(), getDate(), getStatus(), getLanguage());
   }
 }
