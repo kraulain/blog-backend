@@ -13,9 +13,7 @@ import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
-import me.kraulain.backend.handlers.GetAllArticlesHandler;
-import me.kraulain.backend.handlers.HealthCheckHandler;
-import me.kraulain.backend.handlers.ResourceNotFoundHandler;
+import me.kraulain.backend.handlers.*;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -61,7 +59,7 @@ public class MainVerticle extends AbstractVerticle {
     Future<Void> future = Future.future();
     HttpServer server = vertx.createHttpServer();
 
-    LOGGER.debug("in main.HttpVerticle.start(..)");
+    LOGGER.debug("in mainVerticle.start(..)");
 
     Router router = Router.router(vertx);
     router.route()
@@ -89,6 +87,9 @@ public class MainVerticle extends AbstractVerticle {
     // blog endpoint
     router.mountSubRouter("/blog", blogRoutes());
 
+    // blog endpoint
+    router.mountSubRouter("/notification", notificationRoutes());
+
     server.requestHandler(router::accept)
       .listen(8888, ar -> {
         if (ar.succeeded()) {
@@ -108,6 +109,23 @@ public class MainVerticle extends AbstractVerticle {
     Router router = Router.router(vertx);
     //Get all articles paginated
     router.get("/articles").handler(new GetAllArticlesHandler());
+
+    return router;
+  }
+
+  private Router notificationRoutes() {
+    LOGGER.debug("Mounting '/notification' endpoint");
+
+    Router router = Router.router(vertx);
+    //Get all articles paginated
+    router.get("/messages").handler(new GetMessagesHandler());
+    router.get("/messages/:id").handler(new GetMessageHandler());
+    router.post().handler(BodyHandler.create());
+    router.post("/messages").handler(new PostMessageHandler());
+    router.put().handler(BodyHandler.create());
+    router.put("/messages/:id").handler(new PutMessageHandler());
+    router.delete().handler(BodyHandler.create());
+    router.delete("/messages/:id").handler(new DeleteMessageHandler());
 
     return router;
   }

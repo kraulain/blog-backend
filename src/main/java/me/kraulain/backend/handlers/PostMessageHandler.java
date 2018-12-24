@@ -20,7 +20,7 @@ public class PostMessageHandler implements Handler<RoutingContext> {
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from message handler");
+      response.put("greeting", "Hello from post message handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
