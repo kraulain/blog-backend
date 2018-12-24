@@ -72,7 +72,7 @@ public class MainVerticle extends AbstractVerticle {
           .allowedHeader(HttpHeaders.ACCEPT.toString())
           .allowedHeader(HttpHeaders.CONTENT_TYPE.toString()));
 
-    // Handlers
+    // Decode body of all requests
     router.route().handler(BodyHandler.create());
 
     // Health Check
@@ -117,14 +117,14 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/notification' endpoint");
 
     Router router = Router.router(vertx);
-    //Get all articles paginated
+    //Get
     router.get("/messages").handler(new GetMessagesHandler());
     router.get("/messages/:id").handler(new GetMessageHandler());
-    router.post().handler(BodyHandler.create());
+    //post
     router.post("/messages").handler(new PostMessageHandler());
-    router.put().handler(BodyHandler.create());
+    //put
     router.put("/messages/:id").handler(new PutMessageHandler());
-    router.delete().handler(BodyHandler.create());
+    //delete
     router.delete("/messages/:id").handler(new DeleteMessageHandler());
 
     return router;
