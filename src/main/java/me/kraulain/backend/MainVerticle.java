@@ -121,12 +121,17 @@ public class MainVerticle extends AbstractVerticle {
     //Get
     router.get("/push").handler(new ResourceNotFoundHandler());
     router.get("/push/:id").handler(new ResourceNotFoundHandler());
+    router.get("/sms").handler(new ResourceNotFoundHandler());
+    router.get("/sms/:id").handler(new ResourceNotFoundHandler());
     //post
     router.post("/push").handler(new ResourceNotFoundHandler());
+    router.post("/sms").handler(new ResourceNotFoundHandler());
     //put
     router.put("/push/:id").handler(new ResourceNotFoundHandler());
+    router.put("/sms/:id").handler(new ResourceNotFoundHandler());
     //delete
     router.delete("/push/:id").handler(new ResourceNotFoundHandler());
+    router.delete("/sms/:id").handler(new ResourceNotFoundHandler());
 
     return router;
   }
