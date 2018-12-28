@@ -118,21 +118,13 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/notification' endpoint");
 
     Router router = Router.router(vertx);
-    //Get
-    router.get("/messages").handler(new GetMessagesHandler());
-    router.get("/messages/:id").handler(new GetMessageHandler());
-    //post
-    router.post("/messages").handler(new PostMessageHandler());
-    //put
-    router.put("/messages/:id").handler(new PutMessageHandler());
-    //delete
-    router.delete("/messages/:id").handler(new DeleteMessageHandler());
+
 
     return router;
   }
 
   private Router contactRoutes() {
-    LOGGER.debug("Mounting '/notification' endpoint");
+    LOGGER.debug("Mounting '/contact' endpoint");
 
     Router router = Router.router(vertx);
     //Get
