@@ -118,7 +118,15 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/notification' endpoint");
 
     Router router = Router.router(vertx);
-
+    //Get
+    router.get("/push").handler(new ResourceNotFoundHandler());
+    router.get("/push/:id").handler(new ResourceNotFoundHandler());
+    //post
+    router.post("/push").handler(new ResourceNotFoundHandler());
+    //put
+    router.put("/push/:id").handler(new ResourceNotFoundHandler());
+    //delete
+    router.delete("/push/:id").handler(new ResourceNotFoundHandler());
 
     return router;
   }
