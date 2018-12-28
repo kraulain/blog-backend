@@ -2,9 +2,6 @@ package me.kraulain.backend.responses;
 
 import io.vertx.ext.web.client.HttpResponse;
 
-/**
- * Created by Afgrey Development Team.
- */
 public interface ResponseStatues {
 
     public static <T> boolean is1xx(HttpResponse<T> response) {

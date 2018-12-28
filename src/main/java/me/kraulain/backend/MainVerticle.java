@@ -60,7 +60,6 @@ public class MainVerticle extends AbstractVerticle {
     HttpServer server = vertx.createHttpServer();
 
     LOGGER.debug("in mainVerticle.start(..)");
-
     Router router = Router.router(vertx);
     router.route()
       .handler(
@@ -87,8 +86,11 @@ public class MainVerticle extends AbstractVerticle {
     // blog endpoint
     router.mountSubRouter("/blog", blogRoutes());
 
-    // blog endpoint
+    // notification endpoint
     router.mountSubRouter("/notification", notificationRoutes());
+
+    // contact endpoint
+    router.mountSubRouter("/contact", contactRoutes());
 
     server.requestHandler(router::accept)
       .listen(8888, ar -> {
@@ -105,7 +107,6 @@ public class MainVerticle extends AbstractVerticle {
 
   private Router blogRoutes() {
     LOGGER.debug("Mounting '/blog' endpoint");
-
     Router router = Router.router(vertx);
     //Get all articles paginated
     router.get("/articles").handler(new GetAllArticlesHandler());
@@ -114,6 +115,23 @@ public class MainVerticle extends AbstractVerticle {
   }
 
   private Router notificationRoutes() {
+    LOGGER.debug("Mounting '/notification' endpoint");
+
+    Router router = Router.router(vertx);
+    //Get
+    router.get("/messages").handler(new GetMessagesHandler());
+    router.get("/messages/:id").handler(new GetMessageHandler());
+    //post
+    router.post("/messages").handler(new PostMessageHandler());
+    //put
+    router.put("/messages/:id").handler(new PutMessageHandler());
+    //delete
+    router.delete("/messages/:id").handler(new DeleteMessageHandler());
+
+    return router;
+  }
+
+  private Router contactRoutes() {
     LOGGER.debug("Mounting '/notification' endpoint");
 
     Router router = Router.router(vertx);

@@ -2,9 +2,6 @@ package me.kraulain.backend.responses;
 
 import static io.vertx.core.http.HttpHeaders.createOptimized;
 
-/**
- * Created by Afgrey Development Team.
- */
 public class MediaTypes {
 
     /**

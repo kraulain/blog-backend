@@ -19,9 +19,6 @@ import java.util.Optional;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 
-/**
- * Created by Afgrey Development Team.
- */
 public interface Responses {
 
     Logger LOGGER = LoggerFactory.getLogger(Responses.class);
