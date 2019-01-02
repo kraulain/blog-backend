@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers;
+package me.kraulain.backend.handlers.contact.message;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;

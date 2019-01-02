@@ -14,6 +14,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.backend.handlers.*;
+import me.kraulain.backend.handlers.contact.message.*;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -124,21 +125,21 @@ public class MainVerticle extends AbstractVerticle {
     //Get
     router.get("/push").handler(new ResourceNotFoundHandler());
     router.get("/push/:id").handler(new ResourceNotFoundHandler());
-    router.get("/sms").handler(new ResourceNotFoundHandler());
-    router.get("/sms/:id").handler(new ResourceNotFoundHandler());
+    router.get("/app").handler(new ResourceNotFoundHandler());
+    router.get("/app/:id").handler(new ResourceNotFoundHandler());
     router.get("/emails").handler(new ResourceNotFoundHandler());
     router.get("/emails/:id").handler(new ResourceNotFoundHandler());
     //post
     router.post("/push").handler(new ResourceNotFoundHandler());
-    router.post("/sms").handler(new ResourceNotFoundHandler());
+    router.post("/app").handler(new ResourceNotFoundHandler());
     router.post("/emails").handler(new ResourceNotFoundHandler());
     //put
     router.put("/push/:id").handler(new ResourceNotFoundHandler());
-    router.put("/sms/:id").handler(new ResourceNotFoundHandler());
+    router.put("/app/:id").handler(new ResourceNotFoundHandler());
     router.put("/emails/:id").handler(new ResourceNotFoundHandler());
     //delete
     router.delete("/push/:id").handler(new ResourceNotFoundHandler());
-    router.delete("/sms/:id").handler(new ResourceNotFoundHandler());
+    router.delete("/app/:id").handler(new ResourceNotFoundHandler());
     router.delete("/emails/:id").handler(new ResourceNotFoundHandler());
 
     return router;

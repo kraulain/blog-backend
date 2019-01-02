@@ -7,7 +7,7 @@ public class Email {
   private int id;
   private String[] receivers;
   private String subject;
-  private String sender; //sender email address
+  private String sender; //sender Issue address
   private String body;
   private String signature;
   private String status = "new"; // sent, failed, deleted

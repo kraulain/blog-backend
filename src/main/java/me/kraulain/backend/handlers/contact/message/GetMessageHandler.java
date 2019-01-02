@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers;
+package me.kraulain.backend.handlers.contact.message;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class GetMessagesHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(GetMessagesHandler.class);
+public class GetMessageHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(GetMessageHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get all messages {}",
+      LOGGER.debug("get message {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from get all messages handler");
+      response.put("greeting", "Hello from  get single message handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

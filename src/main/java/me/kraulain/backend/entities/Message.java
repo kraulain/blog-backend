@@ -84,7 +84,7 @@ public class Message {
   public String toString() {
     return "Message{" +
       "id=" + id +
-      ", email='" + email + '\'' +
+      ", Issue='" + email + '\'' +
       ", name='" + name + '\'' +
       ", message='" + message + '\'' +
       ", date=" + date +

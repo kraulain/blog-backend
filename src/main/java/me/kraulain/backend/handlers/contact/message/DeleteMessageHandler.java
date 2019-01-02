@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers;
+package me.kraulain.backend.handlers.contact.message;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class PutMessageHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(PutMessageHandler.class);
+public class DeleteMessageHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(DeleteMessageHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("update a message {}",
+      LOGGER.debug("mark message as deleted {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from message update handler");
+      response.put("greeting", "Hello from message delete handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
