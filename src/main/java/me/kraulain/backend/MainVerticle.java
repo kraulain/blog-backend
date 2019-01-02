@@ -92,6 +92,9 @@ public class MainVerticle extends AbstractVerticle {
     // contact endpoint
     router.mountSubRouter("/contact", contactRoutes());
 
+    // issues endpoint
+    router.mountSubRouter("/issues", issuesRoutes());
+
     server.requestHandler(router::accept)
       .listen(8888, ar -> {
         if (ar.succeeded()) {
@@ -154,6 +157,15 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/messages/:id").handler(new PutMessageHandler());
     //delete
     router.delete("/messages/:id").handler(new DeleteMessageHandler());
+
+    return router;
+  }
+
+  private Router issuesRoutes() {
+    LOGGER.debug("Mounting '/issues' endpoint");
+    Router router = Router.router(vertx);
+    //Get all articles paginated
+    //router.get("/issues").handler(new GetIssuesHandler());
 
     return router;
   }
