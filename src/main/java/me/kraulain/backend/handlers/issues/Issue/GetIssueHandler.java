@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class GetIssuesHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(GetIssuesHandler.class);
+public class GetIssueHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(GetIssueHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get all issues {}",
+      LOGGER.debug("get issue {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from get all issues handler");
+      response.put("greeting", "Hello from  get single issue handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

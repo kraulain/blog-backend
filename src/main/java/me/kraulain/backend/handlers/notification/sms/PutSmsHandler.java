@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.issues.Issue;
+package me.kraulain.backend.handlers.notification.sms;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class GetIssuesHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(GetIssuesHandler.class);
+public class PutSmsHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(PutSmsHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get all issues {}",
+      LOGGER.debug("update an issue {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from get all issues handler");
+      response.put("greeting", "Hello from issue update handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

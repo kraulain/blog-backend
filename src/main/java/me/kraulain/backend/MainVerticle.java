@@ -166,7 +166,7 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/issues' endpoint");
     Router router = Router.router(vertx);
     //Get all articles paginated
-    //router.get("/issues").handler(new GetIssuesHandler());
+    //router.get("/issues").handler(new GetEmailsHandler());
 
     return router;
   }

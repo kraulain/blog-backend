@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.issues.Issue;
+package me.kraulain.backend.handlers.notification.sms;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,8 +10,8 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class GetIssuesHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(GetIssuesHandler.class);
+public class GetSmssHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(GetSmssHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
