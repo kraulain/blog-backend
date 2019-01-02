@@ -15,12 +15,12 @@ public class DeleteEmailHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("mark issue as as deleted {}",
+      LOGGER.debug("mark email as as deleted {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from issue delete handler");
+      response.put("greeting", "Hello from email delete handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

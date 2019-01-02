@@ -15,6 +15,9 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.backend.handlers.*;
 import me.kraulain.backend.handlers.contact.message.*;
+import me.kraulain.backend.handlers.notification.email.*;
+import me.kraulain.backend.handlers.notification.push.*;
+import me.kraulain.backend.handlers.notification.sms.*;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -123,24 +126,24 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/push").handler(new ResourceNotFoundHandler());
-    router.get("/push/:id").handler(new ResourceNotFoundHandler());
-    router.get("/app").handler(new ResourceNotFoundHandler());
-    router.get("/app/:id").handler(new ResourceNotFoundHandler());
-    router.get("/emails").handler(new ResourceNotFoundHandler());
-    router.get("/emails/:id").handler(new ResourceNotFoundHandler());
+    router.get("/push").handler(new GetPushesHandler());
+    router.get("/push/:id").handler(new GetPushHandler());
+    router.get("/sms").handler(new GetSmssHandler());
+    router.get("/sms/:id").handler(new GetSmsHandler());
+    router.get("/emails").handler(new GetEmailsHandler());
+    router.get("/emails/:id").handler(new GetEmailHandler());
     //post
-    router.post("/push").handler(new ResourceNotFoundHandler());
-    router.post("/app").handler(new ResourceNotFoundHandler());
-    router.post("/emails").handler(new ResourceNotFoundHandler());
+    router.post("/push").handler(new PostPushHandler());
+    router.post("/sms").handler(new PostSmsHandler());
+    router.post("/emails").handler(new PostEmailHandler());
     //put
-    router.put("/push/:id").handler(new ResourceNotFoundHandler());
-    router.put("/app/:id").handler(new ResourceNotFoundHandler());
-    router.put("/emails/:id").handler(new ResourceNotFoundHandler());
+    router.put("/push/:id").handler(new PutPushHandler());
+    router.put("/sms/:id").handler(new PutSmsHandler());
+    router.put("/emails/:id").handler(new PutEmailHandler());
     //delete
-    router.delete("/push/:id").handler(new ResourceNotFoundHandler());
-    router.delete("/app/:id").handler(new ResourceNotFoundHandler());
-    router.delete("/emails/:id").handler(new ResourceNotFoundHandler());
+    router.delete("/push/:id").handler(new DeletePushHandler());
+    router.delete("/sms/:id").handler(new DeleteSmsHandler());
+    router.delete("/emails/:id").handler(new DeleteEmailHandler());
 
     return router;
   }

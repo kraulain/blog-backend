@@ -15,12 +15,12 @@ public class GetPushesHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get all issues {}",
+      LOGGER.debug("get all pushes {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from get all issues handler");
+      response.put("greeting", "Hello from get all pushes handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

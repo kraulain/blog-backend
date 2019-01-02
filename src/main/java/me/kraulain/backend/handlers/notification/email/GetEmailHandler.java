@@ -15,12 +15,12 @@ public class GetEmailHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get issue {}",
+      LOGGER.debug("get email {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from  get single issue handler");
+      response.put("greeting", "Hello from  get single email handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

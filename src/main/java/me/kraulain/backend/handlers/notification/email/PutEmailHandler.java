@@ -15,12 +15,12 @@ public class PutEmailHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("update an issue {}",
+      LOGGER.debug("update an email {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from issue update handler");
+      response.put("greeting", "Hello from email update handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

@@ -15,12 +15,12 @@ public class GetSmsHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get issue {}",
+      LOGGER.debug("get sms {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from  get single issue handler");
+      response.put("greeting", "Hello from  get single sms handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

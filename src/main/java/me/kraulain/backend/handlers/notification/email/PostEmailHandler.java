@@ -15,12 +15,12 @@ public class PostEmailHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("post an issue {}",
+      LOGGER.debug("post an email {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from post issue handler");
+      response.put("greeting", "Hello from post email handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

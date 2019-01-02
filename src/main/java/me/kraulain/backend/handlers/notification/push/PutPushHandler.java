@@ -15,12 +15,12 @@ public class PutPushHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("update an issue {}",
+      LOGGER.debug("update a push {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from issue update handler");
+      response.put("greeting", "Hello from push update handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
