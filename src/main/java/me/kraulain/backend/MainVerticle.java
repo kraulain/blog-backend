@@ -15,6 +15,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.backend.handlers.*;
 import me.kraulain.backend.handlers.contact.message.*;
+import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
 import me.kraulain.backend.handlers.notification.push.*;
 import me.kraulain.backend.handlers.notification.sms.*;
@@ -89,13 +90,10 @@ public class MainVerticle extends AbstractVerticle {
 
     // blog endpoint
     router.mountSubRouter("/blog", blogRoutes());
-
     // notification endpoint
     router.mountSubRouter("/notification", notificationRoutes());
-
     // contact endpoint
     router.mountSubRouter("/contact", contactRoutes());
-
     // issues endpoint
     router.mountSubRouter("/issues", issuesRoutes());
 
@@ -166,10 +164,17 @@ public class MainVerticle extends AbstractVerticle {
   }
 
   private Router issuesRoutes() {
-    LOGGER.debug("Mounting '/issues' endpoint");
+    LOGGER.debug("Mounting '/issue' endpoint");
     Router router = Router.router(vertx);
-    //Get all articles paginated
-    //router.get("/issues").handler(new GetEmailsHandler());
+    //Get
+    router.get("/issues").handler(new GetIssuesHandler());
+    router.get("/issues/:id").handler(new GetIssueHandler());
+    //post
+    router.post("/issues").handler(new PostIssueHandler());
+    //put
+    router.put("/issues/:id").handler(new PutIssueHandler());
+    //delete
+    router.delete("/issues/:id").handler(new DeleteIssueHandler());
 
     return router;
   }
