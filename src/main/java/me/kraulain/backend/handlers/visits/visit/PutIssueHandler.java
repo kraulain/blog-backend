@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.issues.Issue;
+package me.kraulain.backend.handlers.visits.visit;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;

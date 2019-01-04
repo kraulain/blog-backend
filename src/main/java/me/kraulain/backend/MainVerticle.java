@@ -169,14 +169,14 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/issue' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/issues").handler(new GetIssuesHandler());
-    router.get("/issues/:id").handler(new GetIssueHandler());
+    router.get("/issues").handler(new GetVisitsHandler());
+    router.get("/issues/:id").handler(new GetVisitHandler());
     //post
-    router.post("/issues").handler(new PostIssueHandler());
+    router.post("/issues").handler(new PostVisitHandler());
     //put
-    router.put("/issues/:id").handler(new PutIssueHandler());
+    router.put("/issues/:id").handler(new PutVisitHandler());
     //delete
-    router.delete("/issues/:id").handler(new DeleteIssueHandler());
+    router.delete("/issues/:id").handler(new DeleteVisitHandler());
 
     return router;
   }
