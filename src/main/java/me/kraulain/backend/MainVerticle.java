@@ -194,14 +194,14 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/visits").handler(new GetMessagesHandler());
-    router.get("/visits/:id").handler(new GetMessageHandler());
+    router.get("/visits").handler(new GetVisitsHandler());
+    router.get("/visits/:id").handler(new GetVisitHandler());
     //post
-    router.post("/visits").handler(new PostMessageHandler());
+    router.post("/visits").handler(new PostVisitHandler());
     //put
-    router.put("/visits/:id").handler(new PutMessageHandler());
+    router.put("/visits/:id").handler(new PutVisitHandler());
     //delete
-    router.delete("/visits/:id").handler(new DeleteMessageHandler());
+    router.delete("/visits/:id").handler(new DeleteVisitHandler());
 
     return router;
   }
