@@ -15,6 +15,7 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.backend.handlers.*;
 import me.kraulain.backend.handlers.blog.app.*;
+import me.kraulain.backend.handlers.blog.article.*;
 import me.kraulain.backend.handlers.contact.message.*;
 import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
@@ -115,16 +116,22 @@ public class MainVerticle extends AbstractVerticle {
 
   private Router blogRoutes() {
     LOGGER.debug("Mounting '/blog' endpoint");
+
     Router router = Router.router(vertx);
     //Get
     router.get("/app").handler(new GetAppsHandler());
     router.get("/app/:id").handler(new GetAppHandler());
+    router.get("/article").handler(new GetArticlesHandler());
+    router.get("/article/:id").handler(new GetArticleHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
+    router.post("/article").handler(new PostArticleHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
+    router.put("/article/:id").handler(new PutArticleHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
+    router.delete("/article/:id").handler(new DeleteArticleHandler());
 
     return router;
   }
