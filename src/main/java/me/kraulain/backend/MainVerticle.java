@@ -18,6 +18,7 @@ import me.kraulain.backend.handlers.blog.app.*;
 import me.kraulain.backend.handlers.blog.article.*;
 import me.kraulain.backend.handlers.blog.book.*;
 import me.kraulain.backend.handlers.blog.comment.*;
+import me.kraulain.backend.handlers.blog.course.*;
 import me.kraulain.backend.handlers.contact.message.*;
 import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
@@ -129,21 +130,26 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/book/:id").handler(new GetBookHandler());
     router.get("/comment").handler(new GetCommentsHandler());
     router.get("/comment/:id").handler(new GetCommentHandler());
+    router.get("/course").handler(new GetCoursesHandler());
+    router.get("/course/:id").handler(new GetCourseHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
     router.post("/book").handler(new PostBookHandler());
     router.post("/comment").handler(new PostCommentHandler());
+    router.post("/course").handler(new PostCourseHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
     router.put("/article/:id").handler(new PutArticleHandler());
     router.put("/book/:id").handler(new PutBookHandler());
     router.put("/comment/:id").handler(new PutCommentHandler());
+    router.put("/course/:id").handler(new PutCourseHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
     router.delete("/article/:id").handler(new DeleteArticleHandler());
     router.delete("/book/:id").handler(new DeleteBookHandler());
     router.delete("/comment/:id").handler(new DeleteCommentHandler());
+    router.delete("/course/:id").handler(new DeleteCourseHandler());
 
     return router;
   }
