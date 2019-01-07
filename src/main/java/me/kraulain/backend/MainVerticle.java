@@ -20,6 +20,7 @@ import me.kraulain.backend.handlers.blog.book.*;
 import me.kraulain.backend.handlers.blog.comment.*;
 import me.kraulain.backend.handlers.blog.course.*;
 import me.kraulain.backend.handlers.blog.presentation.*;
+import me.kraulain.backend.handlers.blog.reply.*;
 import me.kraulain.backend.handlers.contact.message.*;
 import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
@@ -135,6 +136,8 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/course/:id").handler(new GetCourseHandler());
     router.get("/presentation").handler(new GetPresentationsHandler());
     router.get("/presentation/:id").handler(new GetPresentationHandler());
+    router.get("/reply").handler(new GetRepliesHandler());
+    router.get("/reply/:id").handler(new GetReplyHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
@@ -142,6 +145,7 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/comment").handler(new PostCommentHandler());
     router.post("/course").handler(new PostCourseHandler());
     router.post("/presentation").handler(new PostPresentationHandler());
+    router.post("/reply").handler(new PostReplyHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
     router.put("/article/:id").handler(new PutArticleHandler());
@@ -149,6 +153,7 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/comment/:id").handler(new PutCommentHandler());
     router.put("/course/:id").handler(new PutCourseHandler());
     router.put("/presentation/:id").handler(new PutPresentationHandler());
+    router.put("/reply/:id").handler(new PutReplyHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
     router.delete("/article/:id").handler(new DeleteArticleHandler());
@@ -156,6 +161,7 @@ public class MainVerticle extends AbstractVerticle {
     router.delete("/comment/:id").handler(new DeleteCommentHandler());
     router.delete("/course/:id").handler(new DeleteCourseHandler());
     router.delete("/presentation/:id").handler(new DeletePresentationHandler());
+    router.delete("/reply/:id").handler(new DeleteReplyHandler());
 
     return router;
   }
