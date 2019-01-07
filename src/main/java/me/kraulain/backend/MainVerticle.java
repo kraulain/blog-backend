@@ -19,6 +19,7 @@ import me.kraulain.backend.handlers.blog.article.*;
 import me.kraulain.backend.handlers.blog.book.*;
 import me.kraulain.backend.handlers.blog.comment.*;
 import me.kraulain.backend.handlers.blog.course.*;
+import me.kraulain.backend.handlers.blog.presentation.*;
 import me.kraulain.backend.handlers.contact.message.*;
 import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
@@ -132,24 +133,29 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/comment/:id").handler(new GetCommentHandler());
     router.get("/course").handler(new GetCoursesHandler());
     router.get("/course/:id").handler(new GetCourseHandler());
+    router.get("/presentation").handler(new GetPresentationsHandler());
+    router.get("/presentation/:id").handler(new GetPresentationHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
     router.post("/book").handler(new PostBookHandler());
     router.post("/comment").handler(new PostCommentHandler());
     router.post("/course").handler(new PostCourseHandler());
+    router.post("/presentation").handler(new PostPresentationHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
     router.put("/article/:id").handler(new PutArticleHandler());
     router.put("/book/:id").handler(new PutBookHandler());
     router.put("/comment/:id").handler(new PutCommentHandler());
     router.put("/course/:id").handler(new PutCourseHandler());
+    router.put("/presentation/:id").handler(new PutPresentationHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
     router.delete("/article/:id").handler(new DeleteArticleHandler());
     router.delete("/book/:id").handler(new DeleteBookHandler());
     router.delete("/comment/:id").handler(new DeleteCommentHandler());
     router.delete("/course/:id").handler(new DeleteCourseHandler());
+    router.delete("/presentation/:id").handler(new DeletePresentationHandler());
 
     return router;
   }
