@@ -22,6 +22,7 @@ import me.kraulain.backend.handlers.blog.course.*;
 import me.kraulain.backend.handlers.blog.presentation.*;
 import me.kraulain.backend.handlers.blog.reply.*;
 import me.kraulain.backend.handlers.blog.user.*;
+import me.kraulain.backend.handlers.blog.video.*;
 import me.kraulain.backend.handlers.contact.message.*;
 import me.kraulain.backend.handlers.issues.Issue.*;
 import me.kraulain.backend.handlers.notification.email.*;
@@ -141,6 +142,8 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/reply/:id").handler(new GetReplyHandler());
     router.get("/user").handler(new GetUsersHandler());
     router.get("/user/:id").handler(new GetUserHandler());
+    router.get("/video").handler(new GetVideosHandler());
+    router.get("/video/:id").handler(new GetVideoHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
@@ -150,6 +153,7 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/presentation").handler(new PostPresentationHandler());
     router.post("/reply").handler(new PostReplyHandler());
     router.post("/user").handler(new PostUserHandler());
+    router.post("/video").handler(new PostVideoHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
     router.put("/article/:id").handler(new PutArticleHandler());
@@ -159,6 +163,7 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/presentation/:id").handler(new PutPresentationHandler());
     router.put("/reply/:id").handler(new PutReplyHandler());
     router.put("/user/:id").handler(new PutUserHandler());
+    router.put("/video/:id").handler(new PutVideoHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
     router.delete("/article/:id").handler(new DeleteArticleHandler());
@@ -168,6 +173,7 @@ public class MainVerticle extends AbstractVerticle {
     router.delete("/presentation/:id").handler(new DeletePresentationHandler());
     router.delete("/reply/:id").handler(new DeleteReplyHandler());
     router.delete("/user/:id").handler(new DeleteUserHandler());
+    router.delete("/video/:id").handler(new DeleteVideoHandler());
 
     return router;
   }
