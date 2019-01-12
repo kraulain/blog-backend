@@ -34,7 +34,8 @@ public class MainVerticle extends AbstractVerticle {
   private JDBCClient dbClient;
   private static final Logger LOGGER = LoggerFactory.getLogger(MainVerticle.class);
 
-  private static final String SQL_CREATE_ARTICLE_TABLE = "create table if not exists article (Id integer identity primary key, Name varchar(255) unique, Content clob)";
+  private static final String SQL_CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
+    "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date status varchar(15), language varchar(3),)";
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
