@@ -9,19 +9,19 @@ public class Article {
   private String subTitle;
   private String imageUrl;
   private String body;
-  private Date date;
+  private Date publishedDate;
   private String Status = "draft"; // published, deleted
   private String language = "en"; // fr, de
 
   public Article(){}
 
-  public Article(int id, String title, String subTitle, String imageUrl, String body, Date date, String status, String language) {
+  public Article(int id, String title, String subTitle, String imageUrl, String body, Date publishedDate, String status, String language) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
     this.imageUrl = imageUrl;
     this.body = body;
-    this.date = date;
+    this.publishedDate = publishedDate;
     Status = status;
     this.language = language;
   }
@@ -66,12 +66,12 @@ public class Article {
     this.body = body;
   }
 
-  public Date getDate() {
-    return date;
+  public Date getPublishedDate() {
+    return publishedDate;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setPublishedDate(Date publishedDate) {
+    this.publishedDate = publishedDate;
   }
 
   public String getStatus() {
@@ -98,7 +98,7 @@ public class Article {
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", body='" + body + '\'' +
-      ", date=" + date +
+      ", publishedDate=" + publishedDate +
       ", Status='" + Status + '\'' +
       ", language='" + language + '\'' +
       '}';
@@ -114,13 +114,13 @@ public class Article {
       Objects.equals(getSubTitle(), article.getSubTitle()) &&
       Objects.equals(getImageUrl(), article.getImageUrl()) &&
       Objects.equals(getBody(), article.getBody()) &&
-      Objects.equals(getDate(), article.getDate()) &&
+      Objects.equals(getPublishedDate(), article.getPublishedDate()) &&
       Objects.equals(getStatus(), article.getStatus()) &&
       Objects.equals(getLanguage(), article.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getBody(), getDate(), getStatus(), getLanguage());
+    return Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getBody(), getPublishedDate(), getStatus(), getLanguage());
   }
 }
