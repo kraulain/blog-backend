@@ -145,6 +145,8 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/user/:id").handler(new GetUserHandler());
     router.get("/video").handler(new GetVideosHandler());
     router.get("/video/:id").handler(new GetVideoHandler());
+    router.get("/podcast").handler(new ResourceNotFoundHandler());
+    router.get("/podcast/:id").handler(new ResourceNotFoundHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
@@ -155,6 +157,7 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/reply").handler(new PostReplyHandler());
     router.post("/user").handler(new PostUserHandler());
     router.post("/video").handler(new PostVideoHandler());
+    router.post("/podcast").handler(new ResourceNotFoundHandler());
     //put
     router.put("/app/:id").handler(new PutAppHandler());
     router.put("/article/:id").handler(new PutArticleHandler());
@@ -165,6 +168,7 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/reply/:id").handler(new PutReplyHandler());
     router.put("/user/:id").handler(new PutUserHandler());
     router.put("/video/:id").handler(new PutVideoHandler());
+    router.put("/podcast/:id").handler(new ResourceNotFoundHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler());
     router.delete("/article/:id").handler(new DeleteArticleHandler());
@@ -175,6 +179,7 @@ public class MainVerticle extends AbstractVerticle {
     router.delete("/reply/:id").handler(new DeleteReplyHandler());
     router.delete("/user/:id").handler(new DeleteUserHandler());
     router.delete("/video/:id").handler(new DeleteVideoHandler());
+    router.delete("/podcast/:id").handler(new ResourceNotFoundHandler());
 
     return router;
   }
