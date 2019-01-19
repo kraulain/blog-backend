@@ -1,6 +1,6 @@
 package me.kraulain.backend.dao;
 
-public class AppDAO {
+public class VisitDAO {
 
   //Todo: select all or search
 

@@ -1,6 +1,6 @@
 package me.kraulain.backend.dao;
 
-public class pushDAO {
+public class ReplyDAO {
 
   //Todo: select all or search
 
