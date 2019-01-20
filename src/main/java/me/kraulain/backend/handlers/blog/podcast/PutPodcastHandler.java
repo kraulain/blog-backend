@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class PutAppHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(PutAppHandler.class);
+public class PutPodcastHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(PutPodcastHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("update an app {}",
+      LOGGER.debug("update an podcast {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from app update handler");
+      response.put("greeting", "Hello from podcast update handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
