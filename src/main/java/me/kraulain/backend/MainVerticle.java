@@ -19,10 +19,7 @@ import me.kraulain.backend.handlers.blog.article.*;
 import me.kraulain.backend.handlers.blog.book.*;
 import me.kraulain.backend.handlers.blog.comment.*;
 import me.kraulain.backend.handlers.blog.course.*;
-import me.kraulain.backend.handlers.blog.podcast.GetPodcastHandler;
-import me.kraulain.backend.handlers.blog.podcast.GetPodcastsHandler;
-import me.kraulain.backend.handlers.blog.podcast.PostPodcastHandler;
-import me.kraulain.backend.handlers.blog.podcast.PutPodcastHandler;
+import me.kraulain.backend.handlers.blog.podcast.*;
 import me.kraulain.backend.handlers.blog.presentation.*;
 import me.kraulain.backend.handlers.blog.reply.*;
 import me.kraulain.backend.handlers.blog.user.*;
@@ -183,7 +180,7 @@ public class MainVerticle extends AbstractVerticle {
     router.delete("/reply/:id").handler(new DeleteReplyHandler());
     router.delete("/user/:id").handler(new DeleteUserHandler());
     router.delete("/video/:id").handler(new DeleteVideoHandler());
-    router.delete("/podcast/:id").handler(new ResourceNotFoundHandler());
+    router.delete("/podcast/:id").handler(new DeletePodcastHandler());
 
     return router;
   }
