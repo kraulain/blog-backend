@@ -20,6 +20,7 @@ import me.kraulain.backend.handlers.blog.book.*;
 import me.kraulain.backend.handlers.blog.comment.*;
 import me.kraulain.backend.handlers.blog.course.*;
 import me.kraulain.backend.handlers.blog.podcast.GetPodcastHandler;
+import me.kraulain.backend.handlers.blog.podcast.GetPodcastsHandler;
 import me.kraulain.backend.handlers.blog.presentation.*;
 import me.kraulain.backend.handlers.blog.reply.*;
 import me.kraulain.backend.handlers.blog.user.*;
@@ -146,8 +147,8 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/user/:id").handler(new GetUserHandler());
     router.get("/video").handler(new GetVideosHandler());
     router.get("/video/:id").handler(new GetVideoHandler());
-    router.get("/podcast").handler(new GetPodcastHandler());
-    router.get("/podcast/:id").handler(new ResourceNotFoundHandler());
+    router.get("/podcast").handler(new GetPodcastsHandler());
+    router.get("/podcast/:id").handler(new GetPodcastHandler());
     //post
     router.post("/app").handler(new PostAppHandler());
     router.post("/article").handler(new PostArticleHandler());
