@@ -269,9 +269,12 @@ public class MainVerticle extends AbstractVerticle {
     String CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
       "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date, status varchar(15), language varchar(3))";
     String CREATE_APP_TABLE = "create table if not exists app (id integer identity primary key, " +
-      "name varchar(100), sub_title varchar(100), description varchar(100), image_urls varchar(255), play_store_url varchar(255), app_store_url varchar(255), status varchar(15), language varchar(3))";
+      "name varchar(100), sub_title varchar(100), description clob, image_urls varchar(255), play_store_url varchar(255), app_store_url varchar(255), status varchar(15), language varchar(3))";
+    String CREATE_BOOK_TABLE = "create table if not exists book (id integer identity primary key, " +
+      "title varchar(100), sub_title varchar(100), image_url varchar(255), description clob, published_date date, status varchar(15), language varchar(3))";
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
+    createAllTables.add(CREATE_BOOK_TABLE);
   }
 
 }
