@@ -30,13 +30,14 @@ import me.kraulain.backend.handlers.notification.email.*;
 import me.kraulain.backend.handlers.notification.push.*;
 import me.kraulain.backend.handlers.notification.sms.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainVerticle extends AbstractVerticle {
 
   private JDBCClient dbClient;
   private static final Logger LOGGER = LoggerFactory.getLogger(MainVerticle.class);
-
-  private static final String SQL_CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
-    "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date status varchar(15), language varchar(3),)";
+  private List<String> createAllTables = new ArrayList<>();
 
   @Override
   public void start(Future<Void> startFuture) throws Exception {
@@ -57,7 +58,7 @@ public class MainVerticle extends AbstractVerticle {
         future.fail(ar.cause());
       } else {
         SQLConnection connection = ar.result();
-        connection.execute(SQL_CREATE_ARTICLE_TABLE, create -> {
+        connection.batch(createAllTables, create -> {
           connection.close();
           if (create.failed()) {
             LOGGER.error("Database preparation error", create.cause());
@@ -260,6 +261,12 @@ public class MainVerticle extends AbstractVerticle {
     router.delete("/visits/:id").handler(new DeleteVisitHandler());
 
     return router;
+  }
+
+  private void initDB(){
+    String SQL_CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
+      "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date status varchar(15), language varchar(3),)";
+    createAllTables.add(SQL_CREATE_ARTICLE_TABLE);
   }
 
 }
