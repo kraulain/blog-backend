@@ -272,9 +272,12 @@ public class MainVerticle extends AbstractVerticle {
       "name varchar(100), sub_title varchar(100), description clob, image_urls varchar(255), play_store_url varchar(255), app_store_url varchar(255), status varchar(15), language varchar(3))";
     String CREATE_BOOK_TABLE = "create table if not exists book (id integer identity primary key, " +
       "title varchar(100), sub_title varchar(100), image_url varchar(255), description clob, published_date date, status varchar(15), language varchar(3))";
+    String CREATE_COMMENT_TABLE = "create table if not exists comment (id integer identity primary key, " +
+      "user_id integer, body clob, published_date date, status varchar(15), language varchar(3), FOREIGN KEY (user_id) REFERENCES user(id))";
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
     createAllTables.add(CREATE_BOOK_TABLE);
+    createAllTables.add(CREATE_COMMENT_TABLE);
   }
 
 }

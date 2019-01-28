@@ -5,19 +5,19 @@ import java.util.Objects;
 
 public class Comment {
   private int id;
-  private String userId;
+  private int userId;
   private String body;
-  private Date date;
+  private Date datePublished;
   private String status = "created"; // deleted
   private String language = "en"; // fr, de
 
   public Comment(){}
 
-  public Comment(int id, String userId, String body, Date date, String status, String language) {
+  public Comment(int id, int userId, String body, Date datePublished, String status, String language) {
     this.id = id;
     this.userId = userId;
     this.body = body;
-    this.date = date;
+    this.datePublished = datePublished;
     this.status = status;
     this.language = language;
   }
@@ -30,11 +30,11 @@ public class Comment {
     this.id = id;
   }
 
-  public String getUserId() {
+  public int getUserId() {
     return userId;
   }
 
-  public void setUserId(String userId) {
+  public void setUserId(int userId) {
     this.userId = userId;
   }
 
@@ -46,12 +46,12 @@ public class Comment {
     this.body = body;
   }
 
-  public Date getDate() {
-    return date;
+  public Date getDatePublished() {
+    return datePublished;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setDatePublished(Date datePublished) {
+    this.datePublished = datePublished;
   }
 
   public String getStatus() {
@@ -76,7 +76,7 @@ public class Comment {
       "id=" + id +
       ", userId='" + userId + '\'' +
       ", body='" + body + '\'' +
-      ", date=" + date +
+      ", datePublished=" + datePublished +
       ", status='" + status + '\'' +
       ", language='" + language + '\'' +
       '}';
@@ -90,13 +90,13 @@ public class Comment {
     return getId() == comment.getId() &&
       Objects.equals(getUserId(), comment.getUserId()) &&
       Objects.equals(getBody(), comment.getBody()) &&
-      Objects.equals(getDate(), comment.getDate()) &&
+      Objects.equals(getDatePublished(), comment.getDatePublished()) &&
       Objects.equals(getStatus(), comment.getStatus()) &&
       Objects.equals(getLanguage(), comment.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getUserId(), getBody(), getDate(), getStatus(), getLanguage());
+    return Objects.hash(getId(), getUserId(), getBody(), getDatePublished(), getStatus(), getLanguage());
   }
 }
