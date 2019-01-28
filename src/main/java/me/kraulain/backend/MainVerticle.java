@@ -52,6 +52,8 @@ public class MainVerticle extends AbstractVerticle {
       .put("driver_class", "org.hsqldb.jdbcDriver")
       .put("max_pool_size", 30));
 
+    initDBQueries();
+
     dbClient.getConnection(ar -> {
       if (ar.failed()) {
         LOGGER.error("Could not open a database connection", ar.cause());
@@ -263,10 +265,13 @@ public class MainVerticle extends AbstractVerticle {
     return router;
   }
 
-  private void initDB(){
-    String SQL_CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
-      "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date status varchar(15), language varchar(3),)";
-    createAllTables.add(SQL_CREATE_ARTICLE_TABLE);
+  private void initDBQueries(){
+    String CREATE_ARTICLE_TABLE = "create table if not exists article (id integer identity primary key, " +
+      "title varchar(100), sub_title varchar(100), image_url varchar(255), body clob, published_date date, status varchar(15), language varchar(3))";
+    String CREATE_APP_TABLE = "create table if not exists app (id integer identity primary key, " +
+      "name varchar(100), sub_title varchar(100), description varchar(100), image_urls varchar(255), play_store_url varchar(255), app_store_url varchar(255), status varchar(15), language varchar(3))";
+    createAllTables.add(CREATE_ARTICLE_TABLE);
+    createAllTables.add(CREATE_APP_TABLE);
   }
 
 }
