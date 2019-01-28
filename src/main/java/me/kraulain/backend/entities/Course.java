@@ -9,19 +9,19 @@ public class Course {
   private String subTitle;
   private String imageUrl;
   private String Description;
-  private int[] articles;
+  private int[] articles_ids;
   private String Status = "draft"; // published, deleted
   private String language = "en"; // fr, de
 
   public Course(){}
 
-  public Course(int id, String title, String subTitle, String imageUrl, String description, int[] articles, String status, String language) {
+  public Course(int id, String title, String subTitle, String imageUrl, String description, int[] articles_ids, String status, String language) {
     this.id = id;
     this.title = title;
     this.subTitle = subTitle;
     this.imageUrl = imageUrl;
     Description = description;
-    this.articles = articles;
+    this.articles_ids = articles_ids;
     Status = status;
     this.language = language;
   }
@@ -70,12 +70,12 @@ public class Course {
     return Status;
   }
 
-  public int[] getArticles() {
-    return articles;
+  public int[] getArticles_ids() {
+    return articles_ids;
   }
 
-  public void setArticles(int[] articles) {
-    this.articles = articles;
+  public void setArticles_ids(int[] articles_ids) {
+    this.articles_ids = articles_ids;
   }
 
   public void setStatus(String status) {
@@ -98,7 +98,7 @@ public class Course {
       ", subTitle='" + subTitle + '\'' +
       ", imageUrl='" + imageUrl + '\'' +
       ", Description='" + Description + '\'' +
-      ", articles=" + Arrays.toString(articles) +
+      ", articles_ids=" + Arrays.toString(articles_ids) +
       ", Status='" + Status + '\'' +
       ", language='" + language + '\'' +
       '}';
@@ -114,7 +114,7 @@ public class Course {
       Objects.equals(getSubTitle(), course.getSubTitle()) &&
       Objects.equals(getImageUrl(), course.getImageUrl()) &&
       Objects.equals(getDescription(), course.getDescription()) &&
-      Arrays.equals(getArticles(), course.getArticles()) &&
+      Arrays.equals(getArticles_ids(), course.getArticles_ids()) &&
       Objects.equals(getStatus(), course.getStatus()) &&
       Objects.equals(getLanguage(), course.getLanguage());
   }
@@ -122,7 +122,7 @@ public class Course {
   @Override
   public int hashCode() {
     int result = Objects.hash(getId(), getTitle(), getSubTitle(), getImageUrl(), getDescription(), getStatus(), getLanguage());
-    result = 31 * result + Arrays.hashCode(getArticles());
+    result = 31 * result + Arrays.hashCode(getArticles_ids());
     return result;
   }
 }
