@@ -274,10 +274,13 @@ public class MainVerticle extends AbstractVerticle {
       "title varchar(100), sub_title varchar(100), image_url varchar(255), description clob, published_date date, status varchar(15), language varchar(3))";
     String CREATE_COMMENT_TABLE = "create table if not exists comment (id integer identity primary key, " +
       "user_id integer, body clob, published_date date, status varchar(15), language varchar(3), FOREIGN KEY (user_id) REFERENCES user(id))";
+    String CREATE_COURSE_TABLE = "create table if not exists course (id integer identity primary key, " +
+      "title varchar(100), sub_title varchar(100), image_url varchar(255), description clob, articles_id varchar(255), status varchar(15), language varchar(3))";
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
     createAllTables.add(CREATE_BOOK_TABLE);
     createAllTables.add(CREATE_COMMENT_TABLE);
+    createAllTables.add(CREATE_COURSE_TABLE);
   }
 
 }
