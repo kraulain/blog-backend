@@ -283,6 +283,7 @@ public class MainVerticle extends AbstractVerticle {
     createAllTables.add(CREATE_BOOK_TABLE);
     createAllTables.add(CREATE_COMMENT_TABLE);
     createAllTables.add(CREATE_COURSE_TABLE);
+    createAllTables.add(CREATE_EMAIL_TABLE);
   }
 
 }

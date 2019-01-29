@@ -9,20 +9,18 @@ public class Email {
   private String subject;
   private String sender; //sender Issue address
   private String body;
-  private String signature;
   private String status = "new"; // sent, failed, deleted
   private String language = "en"; // fr, de
 
   public Email() {
   }
 
-  public Email(int id, String[] receivers, String subject, String sender, String body, String signature, String status, String language) {
+  public Email(int id, String[] receivers, String subject, String sender, String body, String status, String language) {
     this.id = id;
     this.receivers = receivers;
     this.subject = subject;
     this.sender = sender;
     this.body = body;
-    this.signature = signature;
     this.status = status;
     this.language = language;
   }
@@ -67,14 +65,6 @@ public class Email {
     this.body = body;
   }
 
-  public String getSignature() {
-    return signature;
-  }
-
-  public void setSignature(String signature) {
-    this.signature = signature;
-  }
-
   public String getStatus() {
     return status;
   }
@@ -99,7 +89,6 @@ public class Email {
       ", subject='" + subject + '\'' +
       ", sender='" + sender + '\'' +
       ", body='" + body + '\'' +
-      ", signature='" + signature + '\'' +
       ", status='" + status + '\'' +
       ", language='" + language + '\'' +
       '}';
@@ -115,14 +104,13 @@ public class Email {
       Objects.equals(getSubject(), email.getSubject()) &&
       Objects.equals(getSender(), email.getSender()) &&
       Objects.equals(getBody(), email.getBody()) &&
-      Objects.equals(getSignature(), email.getSignature()) &&
       Objects.equals(getStatus(), email.getStatus()) &&
       Objects.equals(getLanguage(), email.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    int result = Objects.hash(getId(), getSubject(), getSender(), getBody(), getSignature(), getStatus(), getLanguage());
+    int result = Objects.hash(getId(), getSubject(), getSender(), getBody(), getStatus(), getLanguage());
     result = 31 * result + Arrays.hashCode(getReceivers());
     return result;
   }
