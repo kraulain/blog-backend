@@ -278,12 +278,15 @@ public class MainVerticle extends AbstractVerticle {
       "title varchar(100), sub_title varchar(100), image_url varchar(255), description clob, articles_id varchar(255), status varchar(15), language varchar(3))";
     String CREATE_EMAIL_TABLE = "create table if not exists email (id integer identity primary key, " +
       "receivers clob, subject varchar(255), sender varchar(50), body clob, status varchar(15), language varchar(3))";
+    String CREATE_ISSUE_TABLE = "create table if not exists issue (id integer identity primary key, " +
+      "occurrence_date date, cause varchar(255), error_message varchar(255),status varchar(15))";
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
     createAllTables.add(CREATE_BOOK_TABLE);
     createAllTables.add(CREATE_COMMENT_TABLE);
     createAllTables.add(CREATE_COURSE_TABLE);
     createAllTables.add(CREATE_EMAIL_TABLE);
+    createAllTables.add(CREATE_ISSUE_TABLE);
   }
 
 }
