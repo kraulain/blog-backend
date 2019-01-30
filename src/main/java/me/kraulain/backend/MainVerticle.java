@@ -290,6 +290,8 @@ public class MainVerticle extends AbstractVerticle {
       "title varchar(100), image_url varchar(255), body clob, status varchar(15), language varchar(3))";
     String CREATE_REPLY_TABLE = "create table if not exists comment (id integer identity primary key, " +
       "user_id integer, name varchar(255), reply_to integer, body clob, published_date date, status varchar(15), language varchar(3), FOREIGN KEY (user_id) REFERENCES user(id), FOREIGN KEY (reply_to) REFERENCES comment(id))";
+    String CREATE_SMS_TABLE = "create table if not exists article (id integer identity primary key, " +
+      "receiver clob, body clob, status varchar(15), language varchar(3))";
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
     createAllTables.add(CREATE_BOOK_TABLE);
@@ -302,6 +304,7 @@ public class MainVerticle extends AbstractVerticle {
     createAllTables.add(CREATE_PRESENTATION_TABLE);
     createAllTables.add(CREATE_PUSH_TABLE);
     createAllTables.add(CREATE_REPLY_TABLE);
+    createAllTables.add(CREATE_SMS_TABLE);
   }
 
 }
