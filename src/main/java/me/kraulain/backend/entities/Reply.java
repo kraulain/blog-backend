@@ -9,19 +9,19 @@ public class Reply {
   private String name;
   private int replyTo;
   private String body;
-  private Date date;
+  private Date datePublished;
   private String status = "created"; // deleted
   private String language = "en"; // fr, de
 
   public Reply(){}
 
-  public Reply(int id, int userId, String name, int replyTo, String body, Date date, String status, String language) {
+  public Reply(int id, int userId, String name, int replyTo, String body, Date datePublished, String status, String language) {
     this.id = id;
     this.userId = userId;
     this.name = name;
     this.replyTo = replyTo;
     this.body = body;
-    this.date = date;
+    this.datePublished = datePublished;
     this.status = status;
     this.language = language;
   }
@@ -66,12 +66,12 @@ public class Reply {
     this.body = body;
   }
 
-  public Date getDate() {
-    return date;
+  public Date getDatePublished() {
+    return datePublished;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setDatePublished(Date datePublished) {
+    this.datePublished = datePublished;
   }
 
   public String getStatus() {
@@ -98,7 +98,7 @@ public class Reply {
       ", name='" + name + '\'' +
       ", replyTo=" + replyTo +
       ", body='" + body + '\'' +
-      ", date=" + date +
+      ", datePublished=" + datePublished +
       ", status='" + status + '\'' +
       ", language='" + language + '\'' +
       '}';
@@ -114,13 +114,13 @@ public class Reply {
       Objects.equals(getUserId(), reply.getUserId()) &&
       Objects.equals(getName(), reply.getName()) &&
       Objects.equals(getBody(), reply.getBody()) &&
-      Objects.equals(getDate(), reply.getDate()) &&
+      Objects.equals(getDatePublished(), reply.getDatePublished()) &&
       Objects.equals(getStatus(), reply.getStatus()) &&
       Objects.equals(getLanguage(), reply.getLanguage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getUserId(), getName(), getReplyTo(), getBody(), getDate(), getStatus(), getLanguage());
+    return Objects.hash(getId(), getUserId(), getName(), getReplyTo(), getBody(), getDatePublished(), getStatus(), getLanguage());
   }
 }
