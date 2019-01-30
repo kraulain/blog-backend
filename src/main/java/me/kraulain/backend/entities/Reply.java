@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Reply {
   private int id;
-  private String userEmail;
+  private int userId;
   private String name;
   private int replyTo;
   private String body;
@@ -15,9 +15,9 @@ public class Reply {
 
   public Reply(){}
 
-  public Reply(int id, String userEmail, String name, int replyTo, String body, Date date, String status, String language) {
+  public Reply(int id, int userId, String name, int replyTo, String body, Date date, String status, String language) {
     this.id = id;
-    this.userEmail = userEmail;
+    this.userId = userId;
     this.name = name;
     this.replyTo = replyTo;
     this.body = body;
@@ -34,12 +34,12 @@ public class Reply {
     this.id = id;
   }
 
-  public String getUserEmail() {
-    return userEmail;
+  public int getUserId() {
+    return userId;
   }
 
-  public void setUserEmail(String userEmail) {
-    this.userEmail = userEmail;
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
   public String getName() {
@@ -94,7 +94,7 @@ public class Reply {
   public String toString() {
     return "Reply{" +
       "id=" + id +
-      ", userEmail='" + userEmail + '\'' +
+      ", userId='" + userId + '\'' +
       ", name='" + name + '\'' +
       ", replyTo=" + replyTo +
       ", body='" + body + '\'' +
@@ -111,7 +111,7 @@ public class Reply {
     Reply reply = (Reply) o;
     return getId() == reply.getId() &&
       getReplyTo() == reply.getReplyTo() &&
-      Objects.equals(getUserEmail(), reply.getUserEmail()) &&
+      Objects.equals(getUserId(), reply.getUserId()) &&
       Objects.equals(getName(), reply.getName()) &&
       Objects.equals(getBody(), reply.getBody()) &&
       Objects.equals(getDate(), reply.getDate()) &&
@@ -121,6 +121,6 @@ public class Reply {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getUserEmail(), getName(), getReplyTo(), getBody(), getDate(), getStatus(), getLanguage());
+    return Objects.hash(getId(), getUserId(), getName(), getReplyTo(), getBody(), getDate(), getStatus(), getLanguage());
   }
 }
