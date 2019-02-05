@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Visit {
   private int id;
-  private Date date;
+  private Date visitDate;
   private String ip;
   private String browser;
   private String country;
@@ -15,9 +15,9 @@ public class Visit {
   public Visit() {
   }
 
-  public Visit(int id, Date date, String ip, String browser, String country, String device, String language) {
+  public Visit(int id, Date visitDate, String ip, String browser, String country, String device, String language) {
     this.id = id;
-    this.date = date;
+    this.visitDate = visitDate;
     this.ip = ip;
     this.browser = browser;
     this.country = country;
@@ -33,12 +33,12 @@ public class Visit {
     this.id = id;
   }
 
-  public Date getDate() {
-    return date;
+  public Date getVisitDate() {
+    return visitDate;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setVisitDate(Date visitDate) {
+    this.visitDate = visitDate;
   }
 
   public String getIp() {
@@ -85,7 +85,7 @@ public class Visit {
   public String toString() {
     return "Visit{" +
       "id=" + id +
-      ", date=" + date +
+      ", visitDate=" + visitDate +
       ", ip='" + ip + '\'' +
       ", browser='" + browser + '\'' +
       ", country='" + country + '\'' +
@@ -100,7 +100,7 @@ public class Visit {
     if (o == null || getClass() != o.getClass()) return false;
     Visit visit = (Visit) o;
     return getId() == visit.getId() &&
-      Objects.equals(getDate(), visit.getDate()) &&
+      Objects.equals(getVisitDate(), visit.getVisitDate()) &&
       Objects.equals(getIp(), visit.getIp()) &&
       Objects.equals(getBrowser(), visit.getBrowser()) &&
       Objects.equals(getCountry(), visit.getCountry()) &&
@@ -110,6 +110,6 @@ public class Visit {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getDate(), getIp(), getBrowser(), getCountry(), getDevice(), getLanguage());
+    return Objects.hash(getId(), getVisitDate(), getIp(), getBrowser(), getCountry(), getDevice(), getLanguage());
   }
 }
