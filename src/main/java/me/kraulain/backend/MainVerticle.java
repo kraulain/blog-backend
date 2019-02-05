@@ -282,7 +282,7 @@ public class MainVerticle extends AbstractVerticle {
       "occurrence_date date, cause varchar(255), error_message varchar(255),status varchar(15))";
     String CREATE_MESSAGE_TABLE = "create table if not exists message (id integer identity primary key, " +
       "email varchar(50), name varchar(100), message clob, published_date date, status varchar(15), language varchar(3))";
-    String CREATE_PODCAST_TABLE = "create table if not exists article (id integer identity primary key, " +
+    String CREATE_PODCAST_TABLE = "create table if not exists podcast (id integer identity primary key, " +
       "title varchar(100), sub_title varchar(100), image_url varchar(255), soundcloud_url varchar(255), description clob, status varchar(15), language varchar(3))";
     String CREATE_PRESENTATION_TABLE = "create table if not exists article (id integer identity primary key, " +
       "title varchar(100), sub_title varchar(100), image_url varchar(255), slides varchar(255), description clob, status varchar(15), language varchar(3))";
