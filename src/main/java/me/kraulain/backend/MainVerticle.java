@@ -298,6 +298,8 @@ public class MainVerticle extends AbstractVerticle {
       "title varchar(100), sub_title varchar(100), image_url varchar(255), youtube_url varchar(255), description clob, status varchar(15), language varchar(3))";
     String CREATE_VISIT_TABLE = "create table if not exists visit (id integer identity primary key, " +
       "visit_date date, ip varchar(50), browser varchar(50), country varchar(50), device varchar(50), language varchar(3))";
+
+    createAllTables.add(CREATE_USER_TABLE);
     createAllTables.add(CREATE_ARTICLE_TABLE);
     createAllTables.add(CREATE_APP_TABLE);
     createAllTables.add(CREATE_BOOK_TABLE);
@@ -311,7 +313,6 @@ public class MainVerticle extends AbstractVerticle {
     createAllTables.add(CREATE_PUSH_TABLE);
     createAllTables.add(CREATE_REPLY_TABLE);
     createAllTables.add(CREATE_SMS_TABLE);
-    createAllTables.add(CREATE_USER_TABLE);
     createAllTables.add(CREATE_VIDEO_TABLE);
     createAllTables.add(CREATE_VISIT_TABLE);
   }
