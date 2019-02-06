@@ -292,7 +292,7 @@ public class MainVerticle extends AbstractVerticle {
       "user_id integer, name varchar(255), reply_to integer, body clob, published_date date, status varchar(15), language varchar(3), FOREIGN KEY (user_id) REFERENCES user(id), FOREIGN KEY (reply_to) REFERENCES comment(id))";
     String CREATE_SMS_TABLE = "create table if not exists sms (id integer identity primary key, " +
       "receiver clob, body clob, status varchar(15), language varchar(3))";
-    String CREATE_USER_TABLE = "create table if not exists article (id integer identity primary key, " +
+    String CREATE_USER_TABLE = "create table if not exists user (id integer identity primary key, " +
       "name varchar(100), email varchar(100), status varchar(15), language varchar(3))";
     String CREATE_VIDEO_TABLE = "create table if not exists video (id integer identity primary key, " +
       "title varchar(100), sub_title varchar(100), image_url varchar(255), youtube_url varchar(255), description clob, status varchar(15), language varchar(3))";
