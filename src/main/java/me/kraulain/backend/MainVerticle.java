@@ -313,6 +313,7 @@ public class MainVerticle extends AbstractVerticle {
     createAllTables.add(CREATE_SMS_TABLE);
     createAllTables.add(CREATE_USER_TABLE);
     createAllTables.add(CREATE_VIDEO_TABLE);
+    createAllTables.add(CREATE_VISIT_TABLE);
   }
 
 }
