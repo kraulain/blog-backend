@@ -28,7 +28,10 @@ public class GetAppHandler implements Handler<RoutingContext> {
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from  get single app handler");
+      String id = routingContext.request().getParam("id");
+      JsonObject app = appDAO.selectById(Integer.valueOf(id)).getJsonObject(0);
+      response.put("title", "get single app");
+      response.put("app", app);
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

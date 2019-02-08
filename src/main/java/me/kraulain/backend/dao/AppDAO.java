@@ -49,7 +49,7 @@ public class AppDAO {
         SQLConnection connection = ar.result();
         JsonArray params = new JsonArray();
         params.add(id);
-        connection.queryWithParams(SELECT_ALL, params, res -> {
+        connection.queryWithParams(SELECT_BY_ID, params, res -> {
           connection.close();
           if (res.succeeded()) {
             if(res.result().equals(null)){
@@ -70,7 +70,7 @@ public class AppDAO {
     return appsReference.get();
   }
 
-  //Todo: select one
+  //Todo insert
 
   //Todo: update
 
