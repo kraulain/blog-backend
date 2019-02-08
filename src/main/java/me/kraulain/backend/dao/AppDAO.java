@@ -27,7 +27,11 @@ public class AppDAO {
         connection.query(SELECT_ALL_APPS, res -> {
           connection.close();
           if (res.succeeded()) {
-            appsReference.set(res.result().getResults());
+            if(res.result().equals(null)){
+              appsReference.set(null);
+            }else {
+              appsReference.set(res.result().getResults());
+            }
           }
         });
       }

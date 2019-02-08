@@ -32,21 +32,12 @@ public class GetAppsHandler implements Handler<RoutingContext> {
 
     JsonObject response = new JsonObject();
 
-    if (!apps.equals(null)) {
-      response.put("title", "Wiki home");
+      response.put("title", "Get all apps");
       response.put("apps", apps);
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
         .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
         .end(response.encode());
-    } else {
-      response.put("error", "Something went wrong");
-      routingContext.response()
-        .setStatusCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
-        .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-        .end(response.encode());
-    }
-
 
   }
 }
