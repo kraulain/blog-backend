@@ -5,6 +5,7 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.web.RoutingContext;
 import me.kraulain.backend.responses.MediaTypes;
 
@@ -12,6 +13,11 @@ import java.net.HttpURLConnection;
 
 public class GetAppsHandler implements Handler<RoutingContext> {
   private final static Logger LOGGER = LoggerFactory.getLogger(GetAppsHandler.class);
+  private JDBCClient dbClient;
+
+  public GetAppsHandler(JDBCClient dbClient){
+    this.dbClient = dbClient;
+  }
 
     @Override
     public void handle(RoutingContext routingContext) {
