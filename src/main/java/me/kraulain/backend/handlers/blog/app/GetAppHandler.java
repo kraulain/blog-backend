@@ -2,6 +2,7 @@ package me.kraulain.backend.handlers.blog.app;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -29,7 +30,11 @@ public class GetAppHandler implements Handler<RoutingContext> {
 
       JsonObject response = new JsonObject();
       String id = routingContext.request().getParam("id");
-      JsonObject app = appDAO.selectById(Integer.valueOf(id)).getJsonObject(0);
+      JsonArray result = appDAO.selectById(Integer.valueOf(id));
+      JsonObject app = null;
+      if(result != null){
+        app = result.getJsonObject(0);
+      }
       response.put("title", "get single app");
       response.put("app", app);
 
