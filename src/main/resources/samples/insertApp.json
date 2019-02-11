@@ -1,0 +1,15 @@
+{
+  "id": "null",
+  "name": "Piggy",
+  "sub_title": "Simple Expense Tracker",
+  "description": "The most awesome app in the whole wide world",
+  "image_urls": [
+    "http://one.png",
+    "http://two.png",
+    "http://three.png"
+  ],
+  "play_store_url": "http://playstore.url",
+  "app_store_url": "http://appstore.url",
+  "status": "draft",
+  "language": "en"
+}
