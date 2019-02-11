@@ -3,6 +3,7 @@ package me.kraulain.backend.dao;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
+import me.kraulain.backend.entities.App;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,9 +29,9 @@ public class AppDAO {
         connection.query(SELECT_ALL, res -> {
           connection.close();
           if (res.succeeded()) {
-            if(res.result().equals(null)){
+            if (res.result().equals(null)) {
               appsReference.set(null);
-            }else {
+            } else {
               appsReference.set(res.result().getResults());
             }
           }
@@ -41,7 +42,7 @@ public class AppDAO {
     return appsReference.get();
   }
 
-  public JsonArray selectById( int id) {
+  public JsonArray selectById(int id) {
 
     final AtomicReference<JsonArray> appsReference = new AtomicReference<>();
 
@@ -53,15 +54,15 @@ public class AppDAO {
         connection.queryWithParams(SELECT_BY_ID, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            if(res.result().equals(null)){
+            if (res.result().equals(null)) {
               appsReference.set(null);
-            }else {
+            } else {
               appsReference.set(
                 res.result()
                   .getResults()
                   .stream()
                   .findFirst()
-              .orElseGet(() -> new JsonArray()));
+                  .orElseGet(() -> new JsonArray()));
             }
           }
         });
@@ -71,7 +72,35 @@ public class AppDAO {
     return appsReference.get();
   }
 
-  //Todo insert
+  public Boolean insert(App app) {
+
+    final AtomicReference<Boolean> appsReference = new AtomicReference<>();
+
+    dbClient.getConnection(ar -> {
+      if (ar.succeeded()) {
+        SQLConnection connection = ar.result();
+        JsonArray params = new JsonArray();
+        params.add(app.getName())
+          .add(app.getSubTitle())
+          .add(app.getDescription())
+          .add(app.getImageUrls())
+          .add(app.getPlayStoreUrl())
+          .add(app.getAppStoreUrl())
+          .add(app.getStatus())
+          .add(app.getLanguage());
+        connection.updateWithParams(INSERT, params, res -> {
+          connection.close();
+          if (res.succeeded()) {
+            appsReference.set(true);
+          } else {
+            appsReference.set(false);
+          }
+        });
+      }
+    });
+
+    return appsReference.get();
+  }
 
   //Todo: update
 
