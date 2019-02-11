@@ -14,6 +14,7 @@ public class AppDAO {
   private String SELECT_ALL = "select * from app";
   private String SELECT_BY_ID = "select * from app where id = ?";
   private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+  private String UPDATE = "update app set name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? where id = ?";
 
   public AppDAO(JDBCClient dbClient) {
     this.dbClient = dbClient;
@@ -102,7 +103,36 @@ public class AppDAO {
     return appsReference.get();
   }
 
-  //Todo: update
+  public Boolean update(App app) {
+
+    final AtomicReference<Boolean> appsReference = new AtomicReference<>();
+
+    dbClient.getConnection(ar -> {
+      if (ar.succeeded()) {
+        SQLConnection connection = ar.result();
+        JsonArray params = new JsonArray();
+        params.add(app.getName())
+          .add(app.getSubTitle())
+          .add(app.getDescription())
+          .add(app.getImageUrls())
+          .add(app.getPlayStoreUrl())
+          .add(app.getAppStoreUrl())
+          .add(app.getStatus())
+          .add(app.getLanguage())
+          .add(app.getId());
+        connection.updateWithParams(UPDATE, params, res -> {
+          connection.close();
+          if (res.succeeded()) {
+            appsReference.set(true);
+          } else {
+            appsReference.set(false);
+          }
+        });
+      }
+    });
+
+    return appsReference.get();
+  }
 
   //Todo: delete
 }
