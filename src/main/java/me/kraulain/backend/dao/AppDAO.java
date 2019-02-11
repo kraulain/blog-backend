@@ -12,6 +12,7 @@ public class AppDAO {
   private JDBCClient dbClient;
   private String SELECT_ALL = "select * from app";
   private String SELECT_BY_ID = "select * from app where id = ?";
+  private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?)";
 
   public AppDAO(JDBCClient dbClient) {
     this.dbClient = dbClient;
