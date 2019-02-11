@@ -38,6 +38,8 @@ public class AppDAO {
             }
           }
         });
+      } else {
+        appsReference.set(null);
       }
     });
 
@@ -68,6 +70,8 @@ public class AppDAO {
             }
           }
         });
+      } else {
+        appsReference.set(null);
       }
     });
 
@@ -98,6 +102,8 @@ public class AppDAO {
             appsReference.set(false);
           }
         });
+      } else {
+        appsReference.set(false);
       }
     });
 
@@ -129,6 +135,8 @@ public class AppDAO {
             appsReference.set(false);
           }
         });
+      } else {
+        appsReference.set(false);
       }
     });
 
@@ -151,6 +159,8 @@ public class AppDAO {
             appsReference.set(false);
           }
         });
+      } else {
+        appsReference.set(false);
       }
     });
 
