@@ -1,5 +1,6 @@
 package me.kraulain.backend.handlers.blog.app;
 
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
@@ -28,7 +29,7 @@ public class GetAppsHandler implements Handler<RoutingContext> {
       routingContext.request()
         .absoluteURI());
 
-    List<JsonArray> apps = appDAO.selectAll();
+    Future<List<JsonArray>> apps = appDAO.selectAll();
 
     JsonObject response = new JsonObject();
 

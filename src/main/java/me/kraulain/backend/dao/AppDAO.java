@@ -1,5 +1,6 @@
 package me.kraulain.backend.dao;
 
+import io.vertx.core.Future;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
@@ -13,17 +14,41 @@ public class AppDAO {
   private JDBCClient dbClient;
   private String SELECT_ALL = "select * from app";
   private String SELECT_BY_ID = "select * from app where id = ?";
-  private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+  private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
   private String UPDATE = "update app set name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? where id = ?";
-  private  String DELETE = "delete from app where Id = ?";
+  private String DELETE = "delete from app where id = ?";
 
   public AppDAO(JDBCClient dbClient) {
     this.dbClient = dbClient;
   }
 
-  public List<JsonArray> selectAll() {
+//  public List<JsonArray> selectAll() {
+//
+//    final AtomicReference<List<JsonArray>> appsReference = new AtomicReference<>();
+//
+//    dbClient.getConnection(ar -> {
+//      if (ar.succeeded()) {
+//        SQLConnection connection = ar.result();
+//        connection.query(SELECT_ALL, res -> {
+//          connection.close();
+//          if (res.succeeded()) {
+//            if (res.result().equals(null)) {
+//              appsReference.set(null);
+//            } else {
+//              appsReference.set(res.result().getResults());
+//            }
+//          }
+//        });
+//      } else {
+//        appsReference.set(null);
+//      }
+//    });
+//
+//    return appsReference.get();
+//  }
 
-    final AtomicReference<List<JsonArray>> appsReference = new AtomicReference<>();
+  public Future<List<JsonArray>> selectAll() {
+    Future<List<JsonArray>> future = Future.future();
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -32,18 +57,20 @@ public class AppDAO {
           connection.close();
           if (res.succeeded()) {
             if (res.result().equals(null)) {
-              appsReference.set(null);
+              future.fail("no apps in db");
             } else {
-              appsReference.set(res.result().getResults());
+              future.complete(
+                res.result()
+                  .getResults());
             }
           }
         });
       } else {
-        appsReference.set(null);
+        future.fail("couldn't get apps");
       }
     });
 
-    return appsReference.get();
+    return future;
   }
 
   public JsonArray selectById(int id) {
