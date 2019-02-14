@@ -48,9 +48,9 @@ public class AppDAO {
     return future;
   }
 
-  public JsonArray selectById(int id) {
+  public Future<JsonArray> selectById(int id) {
 
-    final AtomicReference<JsonArray> appsReference = new AtomicReference<>();
+    Future<JsonArray> future = Future.future();
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -61,9 +61,9 @@ public class AppDAO {
           connection.close();
           if (res.succeeded()) {
             if (res.result().equals(null)) {
-              appsReference.set(null);
+              future.fail("item not found");
             } else {
-              appsReference.set(
+              future.complete(
                 res.result()
                   .getResults()
                   .stream()
@@ -73,11 +73,11 @@ public class AppDAO {
           }
         });
       } else {
-        appsReference.set(null);
+        future.fail("couldn't fetch item");
       }
     });
 
-    return appsReference.get();
+    return future;
   }
 
   public Boolean insert(App app) {
