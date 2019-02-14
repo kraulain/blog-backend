@@ -22,31 +22,6 @@ public class AppDAO {
     this.dbClient = dbClient;
   }
 
-//  public List<JsonArray> selectAll() {
-//
-//    final AtomicReference<List<JsonArray>> appsReference = new AtomicReference<>();
-//
-//    dbClient.getConnection(ar -> {
-//      if (ar.succeeded()) {
-//        SQLConnection connection = ar.result();
-//        connection.query(SELECT_ALL, res -> {
-//          connection.close();
-//          if (res.succeeded()) {
-//            if (res.result().equals(null)) {
-//              appsReference.set(null);
-//            } else {
-//              appsReference.set(res.result().getResults());
-//            }
-//          }
-//        });
-//      } else {
-//        appsReference.set(null);
-//      }
-//    });
-//
-//    return appsReference.get();
-//  }
-
   public Future<List<JsonArray>> selectAll() {
     Future<List<JsonArray>> future = Future.future();
 
