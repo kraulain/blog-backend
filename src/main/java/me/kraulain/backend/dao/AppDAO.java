@@ -80,9 +80,9 @@ public class AppDAO {
     return future;
   }
 
-  public Boolean insert(App app) {
+  public Future<Boolean> insert(App app) {
 
-    final AtomicReference<Boolean> appsReference = new AtomicReference<>();
+    Future<Boolean> future = Future.future();
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -99,17 +99,17 @@ public class AppDAO {
         connection.updateWithParams(INSERT, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            appsReference.set(true);
+            future.complete(true);
           } else {
-            appsReference.set(false);
+            future.fail("couldn't insert item");
           }
         });
       } else {
-        appsReference.set(false);
+        future.fail("error performing insert query");
       }
     });
 
-    return appsReference.get();
+    return future;
   }
 
   public Boolean update(App app) {
