@@ -145,9 +145,9 @@ public class AppDAO {
     return future;
   }
 
-  public Boolean delete(int id) {
+  public Future<Boolean> delete(int id) {
 
-    final AtomicReference<Boolean> appsReference = new AtomicReference<>();
+    Future<Boolean> future = Future.future();
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -156,16 +156,16 @@ public class AppDAO {
         connection.updateWithParams(DELETE, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            appsReference.set(true);
+            future.complete(true);
           } else {
-            appsReference.set(false);
+            future.fail("couldn't delete object");
           }
         });
       } else {
-        appsReference.set(false);
+        future.fail("erro while performing delete query");
       }
     });
 
-    return appsReference.get();
+    return future;
   }
 }
