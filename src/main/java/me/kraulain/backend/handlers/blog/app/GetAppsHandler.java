@@ -29,16 +29,23 @@ public class GetAppsHandler implements Handler<RoutingContext> {
       routingContext.request()
         .absoluteURI());
 
-    Future<List<JsonArray>> apps = appDAO.selectAll();
-
     JsonObject response = new JsonObject();
-
+    Future<List<JsonArray>> future = appDAO.selectAll();
+    if (future.succeeded()) {
       response.put("title", "Get all apps");
-      response.put("apps", apps);
+      response.put("apps", future.result() );
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)
         .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
         .end(response.encode());
+    }else{
+      response.put("title", "Get all apps");
+      response.put("apps", future.result() );
+      routingContext.response()
+        .setStatusCode(HttpURLConnection.HTTP_NOT_FOUND)
+        .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+        .end(response.encode());
+    }
 
   }
 }
