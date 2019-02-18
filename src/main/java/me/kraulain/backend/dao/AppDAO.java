@@ -112,9 +112,9 @@ public class AppDAO {
     return future;
   }
 
-  public Boolean update(App app) {
+  public Future<Boolean> update(App app) {
 
-    final AtomicReference<Boolean> appsReference = new AtomicReference<>();
+    Future<Boolean> future = Future.future();
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -132,17 +132,17 @@ public class AppDAO {
         connection.updateWithParams(UPDATE, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            appsReference.set(true);
+            future.complete(true);
           } else {
-            appsReference.set(false);
+           future.fail("could't update object");
           }
         });
       } else {
-        appsReference.set(false);
+        future.fail("error while performing update query object");
       }
     });
 
-    return appsReference.get();
+    return future;
   }
 
   public Boolean delete(int id) {
