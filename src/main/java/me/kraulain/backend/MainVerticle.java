@@ -152,7 +152,7 @@ public class MainVerticle extends AbstractVerticle {
     router.get("/podcast").handler(new GetPodcastsHandler());
     router.get("/podcast/:id").handler(new GetPodcastHandler());
     //post
-    router.post("/app").handler(new PostAppHandler());
+    router.post("/app").handler(new PostAppHandler(dbClient));
     router.post("/article").handler(new PostArticleHandler());
     router.post("/book").handler(new PostBookHandler());
     router.post("/comment").handler(new PostCommentHandler());
