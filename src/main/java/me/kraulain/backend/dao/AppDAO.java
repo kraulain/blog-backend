@@ -1,13 +1,16 @@
 package me.kraulain.backend.dao;
 
 import io.vertx.core.Future;
+import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
+import io.vertx.ext.web.RoutingContext;
 import me.kraulain.backend.entities.App;
+import me.kraulain.backend.responses.MediaTypes;
 
+import java.net.HttpURLConnection;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class AppDAO {
 
@@ -80,10 +83,7 @@ public class AppDAO {
     return future;
   }
 
-  public Future<Boolean> insert(App app) {
-
-    Future<Boolean> future = Future.future();
-
+  public void insert(RoutingContext routingContext, App app) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
@@ -99,17 +99,19 @@ public class AppDAO {
         connection.updateWithParams(INSERT, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            future.complete(true);
+            routingContext.put("succeeded", res.result().toJson());
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_CREATED)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end();
           } else {
-            future.fail("couldn't insert item");
+            routingContext.fail(res.cause());
           }
         });
       } else {
-        future.fail("error performing insert query");
+        routingContext.fail(ar.cause());
       }
     });
-
-    return future;
   }
 
   public Future<Boolean> update(App app) {
@@ -134,7 +136,7 @@ public class AppDAO {
           if (res.succeeded()) {
             future.complete(true);
           } else {
-           future.fail("could't update object");
+            future.fail("could't update object");
           }
         });
       } else {

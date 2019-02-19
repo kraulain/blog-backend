@@ -1,15 +1,11 @@
 {
   "id": "1",
   "name": "Piggy 2",
-  "sub_title": "updated Simple Expense Tracker",
+  "subTitle": "updated Simple Expense Tracker",
   "description": "The most awesome app in the whole wide world",
-  "image_urls": [
-    "http://one.png",
-    "http://two.png",
-    "http://three.png"
-  ],
-  "play_store_url": "http://playstore.url",
-  "app_store_url": "http://appstore.url",
+  "imageUrls": "http://one.png,http://two.png,http://three.png",
+  "playStoreUrl": "http://playstore.url",
+  "appStoreUrl": "http://appstore.url",
   "status": "draft",
   "language": "en"
 }
