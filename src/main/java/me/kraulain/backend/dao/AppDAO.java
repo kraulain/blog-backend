@@ -12,7 +12,6 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AppDAO {
 
@@ -52,10 +51,7 @@ public class AppDAO {
     });
   }
 
-  public Future<JsonArray> selectById(int id) {
-
-    Future<JsonArray> future = Future.future();
-
+  public void selectById(RoutingContext routingContext, int id) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
@@ -64,24 +60,23 @@ public class AppDAO {
         connection.queryWithParams(SELECT_BY_ID, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            if (res.result().equals(null)) {
-              future.fail("item not found");
-            } else {
-              future.complete(
-                res.result()
-                  .getResults()
-                  .stream()
-                  .findFirst()
-                  .orElseGet(() -> new JsonArray()));
-            }
+            List<JsonArray> apps = res.result()
+              .getResults();
+            JsonObject response = new JsonObject();
+            response.put("title", "App");
+            response.put("app", apps);
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_OK)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end(response.encode());
+          } else {
+            routingContext.fail(res.cause());
           }
         });
       } else {
-        future.fail("couldn't fetch item");
+        routingContext.fail(ar.cause());
       }
     });
-
-    return future;
   }
 
   public void insert(RoutingContext routingContext, App app) {

@@ -29,27 +29,8 @@ public class GetAppHandler implements Handler<RoutingContext> {
         routingContext.request()
           .absoluteURI());
 
-      JsonObject response = new JsonObject();
       String id = routingContext.request().getParam("id");
-      Future<JsonArray> future = appDAO.selectById(Integer.valueOf(id));
-      JsonObject app = null;
-      if(future.succeeded()){
-        app = future.result().getJsonObject(0);
-        response.put("title", "get single app");
-        response.put("app", app);
+      appDAO.selectById(routingContext, Integer.valueOf(id));
 
-        routingContext.response()
-          .setStatusCode(HttpURLConnection.HTTP_OK)
-          .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-          .end(response.encode());
-      } else {
-        response.put("title", "get single app");
-        response.put("app", "app not found");
-
-        routingContext.response()
-          .setStatusCode(HttpURLConnection.HTTP_NOT_FOUND)
-          .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-          .end(response.encode());
-      }
     }
 }
