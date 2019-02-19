@@ -163,7 +163,7 @@ public class MainVerticle extends AbstractVerticle {
     router.post("/video").handler(new PostVideoHandler());
     router.post("/podcast").handler(new PostPodcastHandler());
     //put
-    router.put("/app/:id").handler(new PutAppHandler());
+    router.put("/app/:id").handler(new PutAppHandler(dbClient));
     router.put("/article/:id").handler(new PutArticleHandler());
     router.put("/book/:id").handler(new PutBookHandler());
     router.put("/comment/:id").handler(new PutCommentHandler());
@@ -174,7 +174,7 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/video/:id").handler(new PutVideoHandler());
     router.put("/podcast/:id").handler(new PutPodcastHandler());
     //delete
-    router.delete("/app/:id").handler(new DeleteAppHandler());
+    router.delete("/app/:id").handler(new DeleteAppHandler(dbClient));
     router.delete("/article/:id").handler(new DeleteArticleHandler());
     router.delete("/book/:id").handler(new DeleteBookHandler());
     router.delete("/comment/:id").handler(new DeleteCommentHandler());

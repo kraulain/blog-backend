@@ -5,13 +5,20 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.web.RoutingContext;
+import me.kraulain.backend.dao.AppDAO;
 import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
 public class DeleteAppHandler implements Handler<RoutingContext> {
   private final static Logger LOGGER = LoggerFactory.getLogger(DeleteAppHandler.class);
+  private AppDAO appDAO;
+
+  public DeleteAppHandler(JDBCClient dbClient){
+    appDAO = new AppDAO(dbClient);
+  }
 
     @Override
     public void handle(RoutingContext routingContext) {
@@ -19,12 +26,8 @@ public class DeleteAppHandler implements Handler<RoutingContext> {
         routingContext.request()
           .absoluteURI());
 
-      JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from app delete handler");
+      String id = routingContext.request().getParam("id");
+      appDAO.delete(routingContext, Integer.valueOf(id));
 
-      routingContext.response()
-        .setStatusCode(HttpURLConnection.HTTP_OK)
-        .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-        .end(response.encode());
     }
 }

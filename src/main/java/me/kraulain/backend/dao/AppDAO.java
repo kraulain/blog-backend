@@ -18,9 +18,9 @@ public class AppDAO {
   private JDBCClient dbClient;
   private String SELECT_ALL = "SELECT * FROM app";
   private String SELECT_BY_ID = "SELECT * FROM app WHERE id = ?";
-  private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
-  private String UPDATE = "update app set name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? where id = ?";
-  private String DELETE = "delete from app where id = ?";
+  private String INSERT = "INSERT INTO app VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+  private String UPDATE = "UPDATE app SET name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? WHERE id = ?";
+  private String DELETE = "DELETE FROM app WHERE id = ?";
 
   public AppDAO(JDBCClient dbClient) {
     this.dbClient = dbClient;
@@ -95,11 +95,13 @@ public class AppDAO {
         connection.updateWithParams(INSERT, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            routingContext.put("succeeded", res.result().toJson());
+            JsonObject response = new JsonObject();
+            response.put("title", "Create app");
+            response.put("succeeded", res.result().toJson());
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_CREATED)
               .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-              .end();
+              .end(response.encode());
           } else {
             routingContext.fail(res.cause());
           }
@@ -110,10 +112,7 @@ public class AppDAO {
     });
   }
 
-  public Future<Boolean> update(App app) {
-
-    Future<Boolean> future = Future.future();
-
+  public void update(RoutingContext routingContext, App app, int id) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
@@ -126,27 +125,28 @@ public class AppDAO {
           .add(app.getAppStoreUrl())
           .add(app.getStatus())
           .add(app.getLanguage())
-          .add(app.getId());
+          .add(id);
         connection.updateWithParams(UPDATE, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            future.complete(true);
+            JsonObject response = new JsonObject();
+            response.put("title", "Update app");
+            response.put("succeeded", res.result().toJson());
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_ACCEPTED)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end(response.encode());
           } else {
-            future.fail("could't update object");
+            routingContext.fail(res.cause());
           }
         });
       } else {
-        future.fail("error while performing update query object");
+        routingContext.fail(ar.cause());
       }
     });
-
-    return future;
   }
 
-  public Future<Boolean> delete(int id) {
-
-    Future<Boolean> future = Future.future();
-
+  public void delete(RoutingContext routingContext, int id) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
@@ -154,16 +154,20 @@ public class AppDAO {
         connection.updateWithParams(DELETE, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            future.complete(true);
+            JsonObject response = new JsonObject();
+            response.put("title", "Delete app");
+            response.put("data", res.result().toJson());
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_ACCEPTED)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end(response.encode());
           } else {
-            future.fail("couldn't delete object");
+            routingContext.fail(res.cause());
           }
         });
       } else {
-        future.fail("erro while performing delete query");
+        routingContext.fail(ar.cause());
       }
     });
-
-    return future;
   }
 }
