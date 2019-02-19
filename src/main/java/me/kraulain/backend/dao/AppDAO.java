@@ -3,6 +3,7 @@ package me.kraulain.backend.dao;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.RoutingContext;
@@ -11,12 +12,13 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AppDAO {
 
   private JDBCClient dbClient;
-  private String SELECT_ALL = "select * from app";
-  private String SELECT_BY_ID = "select * from app where id = ?";
+  private String SELECT_ALL = "SELECT * FROM app";
+  private String SELECT_BY_ID = "SELECT * FROM app WHERE id = ?";
   private String INSERT = "insert into app values (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
   private String UPDATE = "update app set name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? where id = ?";
   private String DELETE = "delete from app where id = ?";
@@ -25,30 +27,29 @@ public class AppDAO {
     this.dbClient = dbClient;
   }
 
-  public Future<List<JsonArray>> selectAll() {
-    Future<List<JsonArray>> future = Future.future();
-
+  public void selectAll(RoutingContext routingContext) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
         connection.query(SELECT_ALL, res -> {
           connection.close();
           if (res.succeeded()) {
-            if (res.result().equals(null)) {
-              future.fail("no apps in db");
-            } else {
-              future.complete(
-                res.result()
-                  .getResults());
-            }
+            List<JsonArray> apps = res.result().getResults();
+            JsonObject response = new JsonObject();
+            response.put("title", "All apps");
+            response.put("apps", apps);
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_OK)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end(response.encode());
+          } else {
+            routingContext.fail(res.cause());
           }
         });
       } else {
-        future.fail("couldn't get apps");
+        routingContext.fail(ar.cause());
       }
     });
-
-    return future;
   }
 
   public Future<JsonArray> selectById(int id) {
