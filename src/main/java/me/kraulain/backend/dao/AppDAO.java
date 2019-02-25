@@ -1,6 +1,5 @@
 package me.kraulain.backend.dao;
 
-import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -27,6 +26,10 @@ public class AppDAO {
   }
 
   public void selectAll(RoutingContext routingContext) {
+
+    JsonObject response = new JsonObject();
+    response.put("title", "All apps");
+
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
@@ -34,19 +37,29 @@ public class AppDAO {
           connection.close();
           if (res.succeeded()) {
             List<JsonArray> apps = res.result().getResults();
-            JsonObject response = new JsonObject();
-            response.put("title", "All apps");
+            response.put("message", "Successfully got all apps");
+            response.put("pageIndex", 0);
             response.put("apps", apps);
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_OK)
               .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
               .end(response.encode());
           } else {
-            routingContext.fail(res.cause());
+            response.put("message", "Failed to get all apps");
+            response.put("error", res.cause());
+            routingContext.response()
+              .setStatusCode(HttpURLConnection.HTTP_SERVER_ERROR)
+              .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+              .end(response.encode());
           }
         });
       } else {
-        routingContext.fail(ar.cause());
+        response.put("message", "Failed to get all apps");
+        response.put("error", ar.cause());
+        routingContext.response()
+          .setStatusCode(HttpURLConnection.HTTP_SERVER_ERROR)
+          .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
+          .end(response.encode());
       }
     });
   }
