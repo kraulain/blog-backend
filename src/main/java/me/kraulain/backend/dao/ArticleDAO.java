@@ -7,6 +7,7 @@ import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.RoutingContext;
 import me.kraulain.backend.entities.App;
+import me.kraulain.backend.entities.Article;
 import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
@@ -17,7 +18,7 @@ public class ArticleDAO {
   private JDBCClient dbClient;
   private String SELECT_ALL = "SELECT * FROM article";
   private String SELECT_BY_ID = "SELECT * FROM article WHERE id = ?";
-  private String INSERT = "INSERT INTO app VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+  private String INSERT = "INSERT INTO article VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
   private String UPDATE = "UPDATE app SET name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? WHERE id = ?";
   private String DELETE = "DELETE FROM app WHERE id = ?";
 
@@ -92,24 +93,23 @@ public class ArticleDAO {
     });
   }
 
-  public void insert(RoutingContext routingContext, App app) {
+  public void insert(RoutingContext routingContext, Article article) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
         JsonArray params = new JsonArray();
-        params.add(app.getName())
-          .add(app.getSubTitle())
-          .add(app.getDescription())
-          .add(app.getImageUrls())
-          .add(app.getPlayStoreUrl())
-          .add(app.getAppStoreUrl())
-          .add(app.getStatus())
-          .add(app.getLanguage());
+        params.add(article.getTitle())
+          .add(article.getSubTitle())
+          .add(article.getImageUrl())
+          .add(article.getBody())
+          .add(article.getPublishedDate())
+          .add(article.getStatus())
+          .add(article.getLanguage());
         connection.updateWithParams(INSERT, params, res -> {
           connection.close();
           if (res.succeeded()) {
             JsonObject response = new JsonObject();
-            response.put("title", "Create app");
+            response.put("title", "Create article");
             response.put("succeeded", res.result().toJson());
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_CREATED)
