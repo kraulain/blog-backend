@@ -16,7 +16,7 @@ public class ArticleDAO {
 
   private JDBCClient dbClient;
   private String SELECT_ALL = "SELECT * FROM article";
-  private String SELECT_BY_ID = "SELECT * FROM app WHERE id = ?";
+  private String SELECT_BY_ID = "SELECT * FROM article WHERE id = ?";
   private String INSERT = "INSERT INTO app VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
   private String UPDATE = "UPDATE app SET name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? WHERE id = ?";
   private String DELETE = "DELETE FROM app WHERE id = ?";
@@ -73,11 +73,11 @@ public class ArticleDAO {
         connection.queryWithParams(SELECT_BY_ID, params, res -> {
           connection.close();
           if (res.succeeded()) {
-            List<JsonArray> apps = res.result()
+            List<JsonArray> article = res.result()
               .getResults();
             JsonObject response = new JsonObject();
-            response.put("title", "App");
-            response.put("app", apps);
+            response.put("title", "Article");
+            response.put("article", article);
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_OK)
               .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
