@@ -15,7 +15,7 @@ import java.util.List;
 public class ArticleDAO {
 
   private JDBCClient dbClient;
-  private String SELECT_ALL = "SELECT * FROM app";
+  private String SELECT_ALL = "SELECT * FROM article";
   private String SELECT_BY_ID = "SELECT * FROM app WHERE id = ?";
   private String INSERT = "INSERT INTO app VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
   private String UPDATE = "UPDATE app SET name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? WHERE id = ?";
@@ -28,7 +28,7 @@ public class ArticleDAO {
   public void selectAll(RoutingContext routingContext) {
 
     JsonObject response = new JsonObject();
-    response.put("title", "All apps");
+    response.put("title", "All articles");
 
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
@@ -36,16 +36,16 @@ public class ArticleDAO {
         connection.query(SELECT_ALL, res -> {
           connection.close();
           if (res.succeeded()) {
-            List<JsonArray> apps = res.result().getResults();
-            response.put("message", "Successfully got all apps");
+            List<JsonArray> articles = res.result().getResults();
+            response.put("message", "Successfully got all articles");
             response.put("pageIndex", 0);
-            response.put("apps", apps);
+            response.put("articles", articles);
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_OK)
               .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
               .end(response.encode());
           } else {
-            response.put("message", "Failed to get all apps");
+            response.put("message", "Failed to get all articles");
             response.put("error", res.cause());
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_SERVER_ERROR)
@@ -54,7 +54,7 @@ public class ArticleDAO {
           }
         });
       } else {
-        response.put("message", "Failed to get all apps");
+        response.put("message", "Failed to get all articles");
         response.put("error", ar.cause());
         routingContext.response()
           .setStatusCode(HttpURLConnection.HTTP_SERVER_ERROR)
