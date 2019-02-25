@@ -19,7 +19,7 @@ public class ArticleDAO {
   private String SELECT_ALL = "SELECT * FROM article";
   private String SELECT_BY_ID = "SELECT * FROM article WHERE id = ?";
   private String INSERT = "INSERT INTO article VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
-  private String UPDATE = "UPDATE app SET name = ?, sub_title = ?, description = ?, image_urls = ?, play_store_url = ?, app_store_url = ?, status = ?, language = ? WHERE id = ?";
+  private String UPDATE = "UPDATE app SET title = ?, sub_title = ?, image_url = ?, body = ?, published_date = ?, status = ?, language = ? WHERE id = ?";
   private String DELETE = "DELETE FROM app WHERE id = ?";
 
   public ArticleDAO(JDBCClient dbClient) {
@@ -125,25 +125,24 @@ public class ArticleDAO {
     });
   }
 
-  public void update(RoutingContext routingContext, App app, int id) {
+  public void update(RoutingContext routingContext, Article article, int id) {
     dbClient.getConnection(ar -> {
       if (ar.succeeded()) {
         SQLConnection connection = ar.result();
         JsonArray params = new JsonArray();
-        params.add(app.getName())
-          .add(app.getSubTitle())
-          .add(app.getDescription())
-          .add(app.getImageUrls())
-          .add(app.getPlayStoreUrl())
-          .add(app.getAppStoreUrl())
-          .add(app.getStatus())
-          .add(app.getLanguage())
+        params.add(article.getTitle())
+          .add(article.getSubTitle())
+          .add(article.getImageUrl())
+          .add(article.getBody())
+          .add(article.getPublishedDate())
+          .add(article.getStatus())
+          .add(article.getLanguage())
           .add(id);
         connection.updateWithParams(UPDATE, params, res -> {
           connection.close();
           if (res.succeeded()) {
             JsonObject response = new JsonObject();
-            response.put("title", "Update app");
+            response.put("title", "Update Article");
             response.put("succeeded", res.result().toJson());
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_ACCEPTED)
