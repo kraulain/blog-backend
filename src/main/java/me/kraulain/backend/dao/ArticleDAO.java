@@ -6,7 +6,6 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.RoutingContext;
-import me.kraulain.backend.entities.App;
 import me.kraulain.backend.entities.Article;
 import me.kraulain.backend.responses.MediaTypes;
 
@@ -19,8 +18,8 @@ public class ArticleDAO {
   private String SELECT_ALL = "SELECT * FROM article";
   private String SELECT_BY_ID = "SELECT * FROM article WHERE id = ?";
   private String INSERT = "INSERT INTO article VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
-  private String UPDATE = "UPDATE app SET title = ?, sub_title = ?, image_url = ?, body = ?, published_date = ?, status = ?, language = ? WHERE id = ?";
-  private String DELETE = "DELETE FROM app WHERE id = ?";
+  private String UPDATE = "UPDATE article SET title = ?, sub_title = ?, image_url = ?, body = ?, published_date = ?, status = ?, language = ? WHERE id = ?";
+  private String DELETE = "DELETE FROM article WHERE id = ?";
 
   public ArticleDAO(JDBCClient dbClient) {
     this.dbClient = dbClient;
@@ -167,7 +166,7 @@ public class ArticleDAO {
           connection.close();
           if (res.succeeded()) {
             JsonObject response = new JsonObject();
-            response.put("title", "Delete app");
+            response.put("title", "Delete article");
             response.put("data", res.result().toJson());
             routingContext.response()
               .setStatusCode(HttpURLConnection.HTTP_ACCEPTED)
