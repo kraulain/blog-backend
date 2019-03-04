@@ -133,7 +133,7 @@ public class MainVerticle extends AbstractVerticle {
     //Get
     router.get("/app").handler(new GetAppsHandler(dbClient));
     router.get("/app/:id").handler(new GetAppHandler(dbClient));
-    router.get("/article").handler(new GetArticlesHandler());
+    router.get("/article").handler(new GetArticlesHandler(dbClient));
     router.get("/article/:id").handler(new GetArticleHandler(dbClient));
     router.get("/book").handler(new GetBooksHandler());
     router.get("/book/:id").handler(new GetBookHandler());
