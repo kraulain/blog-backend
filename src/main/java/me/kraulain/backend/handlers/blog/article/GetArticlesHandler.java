@@ -5,13 +5,20 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.web.RoutingContext;
+import me.kraulain.backend.dao.ArticleDAO;
 import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
 public class GetArticlesHandler implements Handler<RoutingContext> {
   private final static Logger LOGGER = LoggerFactory.getLogger(GetArticlesHandler.class);
+  private ArticleDAO articleDAO;
+
+  public GetArticlesHandler(JDBCClient dbClient){
+    articleDAO = new ArticleDAO(dbClient);
+  }
 
     @Override
     public void handle(RoutingContext routingContext) {
@@ -19,12 +26,6 @@ public class GetArticlesHandler implements Handler<RoutingContext> {
         routingContext.request()
           .absoluteURI());
 
-      JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from get all articles handler");
-
-      routingContext.response()
-        .setStatusCode(HttpURLConnection.HTTP_OK)
-        .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-        .end(response.encode());
+      articleDAO.selectAll(routingContext);
     }
 }
