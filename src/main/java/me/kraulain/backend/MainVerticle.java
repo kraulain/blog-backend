@@ -175,7 +175,7 @@ public class MainVerticle extends AbstractVerticle {
     router.put("/podcast/:id").handler(new PutPodcastHandler());
     //delete
     router.delete("/app/:id").handler(new DeleteAppHandler(dbClient));
-    router.delete("/article/:id").handler(new DeleteArticleHandler());
+    router.delete("/article/:id").handler(new DeleteArticleHandler(dbClient));
     router.delete("/book/:id").handler(new DeleteBookHandler());
     router.delete("/comment/:id").handler(new DeleteCommentHandler());
     router.delete("/course/:id").handler(new DeleteCourseHandler());
