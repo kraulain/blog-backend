@@ -5,13 +5,21 @@ import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.web.RoutingContext;
+import me.kraulain.backend.dao.ArticleDAO;
+import me.kraulain.backend.entities.Article;
 import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
 public class PutArticleHandler implements Handler<RoutingContext> {
   private final static Logger LOGGER = LoggerFactory.getLogger(PutArticleHandler.class);
+  private ArticleDAO articleDAO;
+
+  public PutArticleHandler(JDBCClient dbClient) {
+    articleDAO = new ArticleDAO(dbClient);
+  }
 
     @Override
     public void handle(RoutingContext routingContext) {
@@ -19,12 +27,8 @@ public class PutArticleHandler implements Handler<RoutingContext> {
         routingContext.request()
           .absoluteURI());
 
-      JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from article update handler");
-
-      routingContext.response()
-        .setStatusCode(HttpURLConnection.HTTP_OK)
-        .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON)
-        .end(response.encode());
+      String id = routingContext.request().getParam("id");
+      Article article = routingContext.getBodyAsJson().mapTo(Article.class);
+      articleDAO.update(routingContext, article, Integer.valueOf(id));
     }
 }
