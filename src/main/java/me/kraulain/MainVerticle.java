@@ -15,21 +15,11 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.data.Collections;
 import me.kraulain.handlers.*;
-import me.kraulain.handlers.blog.app.*;
-import me.kraulain.handlers.blog.article.*;
-import me.kraulain.handlers.blog.book.*;
-import me.kraulain.handlers.blog.comment.*;
-import me.kraulain.handlers.blog.course.*;
-import me.kraulain.handlers.blog.podcast.*;
-import me.kraulain.handlers.blog.presentation.*;
-import me.kraulain.handlers.blog.reply.*;
-import me.kraulain.handlers.blog.user.*;
-import me.kraulain.handlers.blog.video.*;
-import me.kraulain.handlers.contact.message.*;
-import me.kraulain.handlers.issues.Issue.*;
-import me.kraulain.handlers.notification.email.*;
-import me.kraulain.handlers.notification.push.*;
-import me.kraulain.handlers.notification.sms.*;
+import me.kraulain.handlers.articles.*;
+import me.kraulain.handlers.courses.*;
+import me.kraulain.handlers.users.*;
+import me.kraulain.handlers.messages.*;
+import me.kraulain.handlers.notifications.*;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -83,8 +73,8 @@ public class MainVerticle extends AbstractVerticle {
 
     // blog endpoint
     router.mountSubRouter("/blog", blogRoutes());
-    // notification endpoint
-    router.mountSubRouter("/notification", notificationRoutes());
+    // notifications endpoint
+    router.mountSubRouter("/notifications", notificationRoutes());
     // contact endpoint
     router.mountSubRouter("/contact", contactRoutes());
     // issues endpoint
@@ -168,7 +158,7 @@ public class MainVerticle extends AbstractVerticle {
   }
 
   private Router notificationRoutes() {
-    LOGGER.debug("Mounting '/notification' endpoint");
+    LOGGER.debug("Mounting '/notifications' endpoint");
 
     Router router = Router.router(vertx);
     //Get
