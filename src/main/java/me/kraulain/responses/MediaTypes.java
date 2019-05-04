@@ -1,4 +1,4 @@
-package me.kraulain.backend.responses;
+package me.kraulain.responses;
 
 import static io.vertx.core.http.HttpHeaders.createOptimized;
 

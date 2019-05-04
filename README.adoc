@@ -1,4 +1,4 @@
-= Backend
+= Blog Backend
 
 image:https://img.shields.io/badge/vert.x-3.5.3-purple.svg[link="https://vertx.io"]
 

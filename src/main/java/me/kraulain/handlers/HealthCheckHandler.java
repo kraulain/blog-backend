@@ -1,11 +1,11 @@
-package me.kraulain.backend.handlers;
+package me.kraulain.handlers;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
-import me.kraulain.backend.responses.MediaTypes;
+import me.kraulain.responses.MediaTypes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,0 +1,19 @@
+Invoice = {_id, orderId, date, amount, language, status}
+
+Issue = {_id, cause, date, language, status}
+
+Message = {_id, ~userId, senderEmail, topic, body, date, language, status}
+
+Notification = {_id, type, userId, title, body, date, language, status}
+
+Order = {_id, userId, itemIds[], startDate, dueDate, endDate, addressId, status}
+
+Address = {_id, phoneNumber, street, city}
+
+Preference = {_id, userId, notifications, language, device, paymentMethod}
+
+User = {_id, preferenceId, name, email, phoneNumber, addressId, status}
+
+Change = {_id, author, action, description, date}
+
+Item = {_id, name, price, duration, status}
