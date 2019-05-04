@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.blog.course;
+package me.kraulain.handlers.courses;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;

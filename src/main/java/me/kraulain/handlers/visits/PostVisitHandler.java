@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.visits.visit;
+package me.kraulain.handlers.visits;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class PutIssueHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(PutIssueHandler.class);
+public class PostVisitHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(PostVisitHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("update an issue {}",
+      LOGGER.debug("post an issue {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from issue update handler");
+      response.put("greeting", "Hello from post issue handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

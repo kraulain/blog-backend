@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.notification.email;
+package me.kraulain.handlers.visits;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class DeleteEmailHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(DeleteEmailHandler.class);
+public class PutVisitHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(PutVisitHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("mark email as as deleted {}",
+      LOGGER.debug("update an issue {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from email delete handler");
+      response.put("greeting", "Hello from issue update handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

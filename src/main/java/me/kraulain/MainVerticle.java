@@ -5,21 +5,28 @@ import io.vertx.core.Future;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
+import io.vertx.core.net.JksOptions;
+import io.vertx.ext.auth.KeyStoreOptions;
 import io.vertx.ext.auth.jwt.JWTAuth;
+import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import me.kraulain.data.Collections;
 import me.kraulain.handlers.*;
+import me.kraulain.handlers.admin.ClaimPasscodeHandler;
+import me.kraulain.handlers.admin.LoginHandler;
 import me.kraulain.handlers.articles.*;
 import me.kraulain.handlers.courses.*;
 import me.kraulain.handlers.users.*;
 import me.kraulain.handlers.messages.*;
 import me.kraulain.handlers.notifications.*;
+import me.kraulain.handlers.visits.*;
 
 public class MainVerticle extends AbstractVerticle {
 
@@ -45,7 +52,24 @@ public class MainVerticle extends AbstractVerticle {
 
   private Future<Void> startHttpServer() {
     Future<Void> future = Future.future();
-    HttpServer server = vertx.createHttpServer();
+
+    // Create a JWT Auth Provider
+    JWTAuthOptions config = new JWTAuthOptions()
+      .setKeyStore(new KeyStoreOptions()
+        .setType("jks")
+        .setPath("kraulain.jks")
+        .setPassword("kraulain"));
+
+    provider = JWTAuth.create(vertx, config);
+
+    HttpServerOptions serverOptions = new HttpServerOptions()
+      .setSsl(true)
+      .setKeyStoreOptions(new JksOptions()
+        .setPath("kraulain.jks")
+        .setPassword("kraulain"));
+
+
+    HttpServer server = vertx.createHttpServer(serverOptions);
 
     LOGGER.debug("in mainVerticle.start(..)");
     Router router = Router.router(vertx);
@@ -71,16 +95,20 @@ public class MainVerticle extends AbstractVerticle {
       .last()
       .handler(new ResourceNotFoundHandler());
 
-    // blog endpoint
-    router.mountSubRouter("/blog", blogRoutes());
+    // orders endpoint
+    router.mountSubRouter("/admin", adminRoutes());
+    // articles endpoint
+    router.mountSubRouter("/articles", articlesRoutes());
+    // courses endpoint
+    router.mountSubRouter("/courses", coursesRoutes());
+    // messages endpoint
+    router.mountSubRouter("/messages", messagesRoutes());
     // notifications endpoint
-    router.mountSubRouter("/notifications", notificationRoutes());
-    // contact endpoint
-    router.mountSubRouter("/contact", contactRoutes());
-    // issues endpoint
-    router.mountSubRouter("/issue", issuesRoutes());
-    // visit endpoint
-    router.mountSubRouter("/visit", visitRoutes());
+    router.mountSubRouter("/notifications", notificationsRoutes());
+    // users endpoint
+    router.mountSubRouter("/users", usersRoutes());
+    // visits endpoint
+    router.mountSubRouter("/visits", visitsRoutes());
 
     server.requestHandler(router::accept)
       .listen(8888, ar -> {
@@ -95,141 +123,112 @@ public class MainVerticle extends AbstractVerticle {
     return future;
   }
 
-  private Router blogRoutes() {
-    LOGGER.debug("Mounting '/blog' endpoint");
+  private Router adminRoutes() {
+    LOGGER.debug("Mounting '/admin' endpoint");
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/app").handler(new GetAppsHandler(dbClient));
-    router.get("/app/:id").handler(new GetAppHandler(dbClient));
-    router.get("/article").handler(new GetArticlesHandler(dbClient));
-    router.get("/article/:id").handler(new GetArticleHandler(dbClient));
-    router.get("/book").handler(new GetBooksHandler());
-    router.get("/book/:id").handler(new GetBookHandler());
-    router.get("/comment").handler(new GetCommentsHandler());
-    router.get("/comment/:id").handler(new GetCommentHandler());
-    router.get("/course").handler(new GetCoursesHandler());
-    router.get("/course/:id").handler(new GetCourseHandler());
-    router.get("/presentation").handler(new GetPresentationsHandler());
-    router.get("/presentation/:id").handler(new GetPresentationHandler());
-    router.get("/reply").handler(new GetRepliesHandler());
-    router.get("/reply/:id").handler(new GetReplyHandler());
-    router.get("/user").handler(new GetUsersHandler());
-    router.get("/user/:id").handler(new GetUserHandler());
-    router.get("/video").handler(new GetVideosHandler());
-    router.get("/video/:id").handler(new GetVideoHandler());
-    router.get("/podcast").handler(new GetPodcastsHandler());
-    router.get("/podcast/:id").handler(new GetPodcastHandler());
-    //post
-    router.post("/app").handler(new PostAppHandler(dbClient));
-    router.post("/article").handler(new PostArticleHandler(dbClient));
-    router.post("/book").handler(new PostBookHandler());
-    router.post("/comment").handler(new PostCommentHandler());
-    router.post("/course").handler(new PostCourseHandler());
-    router.post("/presentation").handler(new PostPresentationHandler());
-    router.post("/reply").handler(new PostReplyHandler());
-    router.post("/user").handler(new PostUserHandler());
-    router.post("/video").handler(new PostVideoHandler());
-    router.post("/podcast").handler(new PostPodcastHandler());
-    //put
-    router.put("/app/:id").handler(new PutAppHandler(dbClient));
-    router.put("/article/:id").handler(new PutArticleHandler(dbClient));
-    router.put("/book/:id").handler(new PutBookHandler());
-    router.put("/comment/:id").handler(new PutCommentHandler());
-    router.put("/course/:id").handler(new PutCourseHandler());
-    router.put("/presentation/:id").handler(new PutPresentationHandler());
-    router.put("/reply/:id").handler(new PutReplyHandler());
-    router.put("/user/:id").handler(new PutUserHandler());
-    router.put("/video/:id").handler(new PutVideoHandler());
-    router.put("/podcast/:id").handler(new PutPodcastHandler());
-    //delete
-    router.delete("/app/:id").handler(new DeleteAppHandler(dbClient));
-    router.delete("/article/:id").handler(new DeleteArticleHandler(dbClient));
-    router.delete("/book/:id").handler(new DeleteBookHandler());
-    router.delete("/comment/:id").handler(new DeleteCommentHandler());
-    router.delete("/course/:id").handler(new DeleteCourseHandler());
-    router.delete("/presentation/:id").handler(new DeletePresentationHandler());
-    router.delete("/reply/:id").handler(new DeleteReplyHandler());
-    router.delete("/user/:id").handler(new DeleteUserHandler());
-    router.delete("/video/:id").handler(new DeleteVideoHandler());
-    router.delete("/podcast/:id").handler(new DeletePodcastHandler());
+    router.get("/login").handler(new LoginHandler(dbClient));
+    router.get("/claimpasscode").handler(new ClaimPasscodeHandler(dbClient, provider));
 
     return router;
   }
 
-  private Router notificationRoutes() {
+  private Router articlesRoutes() {
+    LOGGER.debug("Mounting '/articles' endpoint");
+
+    Router router = Router.router(vertx);
+    //Get
+    router.get("/").handler(new GetArticlesHandler());
+    router.get("/:id").handler(new GetArticleHandler());
+    //post
+    router.post("/").handler(new PostArticleHandler());
+    //put
+    router.put("/:id").handler(new PutArticleHandler());
+    //delete
+    router.delete("/:id").handler(new DeleteArticleHandler());
+
+    return router;
+  }
+
+  private Router coursesRoutes() {
+    LOGGER.debug("Mounting '/courses' endpoint");
+
+    Router router = Router.router(vertx);
+    //Get
+    router.get("/").handler(new GetCoursesHandler());
+    router.get("/:id").handler(new GetCourseHandler());
+    //post
+    router.post("/").handler(new PostCourseHandler());
+    //put
+    router.put("/:id").handler(new PutCourseHandler());
+    //delete
+    router.delete("/:id").handler(new DeleteCourseHandler());
+
+    return router;
+  }
+
+  private Router messagesRoutes() {
+    LOGGER.debug("Mounting '/messages' endpoint");
+    Router router = Router.router(vertx);
+    //Get
+    router.get("/").handler(new GetMessagesHandler());
+    router.get("/:id").handler(new GetMessageHandler());
+    //post
+    router.post("/").handler(new PostMessageHandler());
+    //put
+    router.put("/:id").handler(new PutMessageHandler());
+    //delete
+    router.delete("/:id").handler(new DeleteMessageHandler());
+
+    return router;
+  }
+
+  private Router notificationsRoutes() {
     LOGGER.debug("Mounting '/notifications' endpoint");
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/push").handler(new GetPushesHandler());
-    router.get("/push/:id").handler(new GetPushHandler());
-    router.get("/sms").handler(new GetSmssHandler());
-    router.get("/sms/:id").handler(new GetSmsHandler());
-    router.get("/emails").handler(new GetEmailsHandler());
-    router.get("/emails/:id").handler(new GetEmailHandler());
+    router.get("/").handler(new GetNotificationsHandler());
+    router.get("/:id").handler(new GetNotificationHandler());
     //post
-    router.post("/push").handler(new PostPushHandler());
-    router.post("/sms").handler(new PostSmsHandler());
-    router.post("/emails").handler(new PostEmailHandler());
+    router.post("/").handler(new PostNotificationHandler());
     //put
-    router.put("/push/:id").handler(new PutPushHandler());
-    router.put("/sms/:id").handler(new PutSmsHandler());
-    router.put("/emails/:id").handler(new PutEmailHandler());
+    router.put("/:id").handler(new PutNotificationHandler());
     //delete
-    router.delete("/push/:id").handler(new DeletePushHandler());
-    router.delete("/sms/:id").handler(new DeleteSmsHandler());
-    router.delete("/emails/:id").handler(new DeleteEmailHandler());
+    router.delete("/:id").handler(new DeleteNotificationHandler());
 
     return router;
   }
 
-  private Router contactRoutes() {
-    LOGGER.debug("Mounting '/contact' endpoint");
-
+  private Router usersRoutes() {
+    LOGGER.debug("Mounting '/users' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/messages").handler(new GetMessagesHandler());
-    router.get("/messages/:id").handler(new GetMessageHandler());
+    router.get("/").handler(new GetUsersHandler());
+    router.get("/:id").handler(new GetUserHandler());
     //post
-    router.post("/messages").handler(new PostMessageHandler());
+    router.post("/").handler(new PostUserHandler());
     //put
-    router.put("/messages/:id").handler(new PutMessageHandler());
+    router.put("/:id").handler(new PutUserHandler());
     //delete
-    router.delete("/messages/:id").handler(new DeleteMessageHandler());
+    router.delete("/:id").handler(new DeleteUserHandler());
 
     return router;
   }
 
-  private Router issuesRoutes() {
-    LOGGER.debug("Mounting '/issue' endpoint");
+  private Router visitsRoutes() {
+    LOGGER.debug("Mounting '/visits' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/issues").handler(new GetVisitsHandler());
-    router.get("/issues/:id").handler(new GetVisitHandler());
+    router.get("/").handler(new GetVisitsHandler());
+    router.get("/:id").handler(new GetVisitHandler());
     //post
-    router.post("/issues").handler(new PostVisitHandler());
+    router.post("/").handler(new PostVisitHandler());
     //put
-    router.put("/issues/:id").handler(new PutVisitHandler());
+    router.put("/:id").handler(new PutVisitHandler());
     //delete
-    router.delete("/issues/:id").handler(new DeleteVisitHandler());
-
-    return router;
-  }
-
-  private Router visitRoutes() {
-    LOGGER.debug("Mounting '/visit' endpoint");
-
-    Router router = Router.router(vertx);
-    //Get
-    router.get("/visits").handler(new GetVisitsHandler());
-    router.get("/visits/:id").handler(new GetVisitHandler());
-    //post
-    router.post("/visits").handler(new PostVisitHandler());
-    //put
-    router.put("/visits/:id").handler(new PutVisitHandler());
-    //delete
-    router.delete("/visits/:id").handler(new DeleteVisitHandler());
+    router.delete("/:id").handler(new DeleteVisitHandler());
 
     return router;
   }
@@ -237,9 +236,9 @@ public class MainVerticle extends AbstractVerticle {
   private void initDB() {
     JsonObject dbConfig = new JsonObject().put("host", "172.17.0.2")
       .put("port", 27017)
-      .put("username", "itsparkles-user")
-      .put("password", "itsparkles-password")
-      .put("db_name", "itsparkles")
+      .put("username", "kraulain-me-user")
+      .put("password", "kraulain-me-password")
+      .put("db_name", "kraulain-me")
       .put("authMechanism", "SCRAM-SHA-1")
       .put("authSource", "admin");
 

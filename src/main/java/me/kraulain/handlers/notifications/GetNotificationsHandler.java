@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.visits.visit;
+package me.kraulain.handlers.notifications;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
@@ -10,17 +10,17 @@ import me.kraulain.backend.responses.MediaTypes;
 
 import java.net.HttpURLConnection;
 
-public class PostIssueHandler implements Handler<RoutingContext> {
-  private final static Logger LOGGER = LoggerFactory.getLogger(PostIssueHandler.class);
+public class GetNotificationsHandler implements Handler<RoutingContext> {
+  private final static Logger LOGGER = LoggerFactory.getLogger(GetEmailsHandler.class);
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("post an issue {}",
+      LOGGER.debug("get all email {}",
         routingContext.request()
           .absoluteURI());
 
       JsonObject response = new JsonObject();
-      response.put("greeting", "Hello from post issue handler");
+      response.put("greeting", "Hello from get all email handler");
 
       routingContext.response()
         .setStatusCode(HttpURLConnection.HTTP_OK)

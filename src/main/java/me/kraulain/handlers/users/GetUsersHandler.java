@@ -1,4 +1,4 @@
-package me.kraulain.backend.handlers.blog.user;
+package me.kraulain.handlers.users;
 
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpHeaders;
