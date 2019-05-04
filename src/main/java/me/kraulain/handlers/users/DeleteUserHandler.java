@@ -30,7 +30,9 @@ public class DeleteUserHandler implements Handler<RoutingContext> {
 
     String _id = routingContext.request().getParam("id");
     JsonObject query = new JsonObject().put("_id", _id);
+
     JsonObject replaceJson = new JsonObject();
+
     JsonObject response = new JsonObject();
     routingContext.response()
       .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON);
@@ -39,7 +41,7 @@ public class DeleteUserHandler implements Handler<RoutingContext> {
     Future<JsonObject> replaceFuture = mongoDAO.retrieveOne(Collections.User, query);
     replaceFuture.setHandler(replaceResult -> {
       replaceJson.mergeIn(replaceFuture.result());
-      replaceJson.put("status", "inactive");
+      replaceJson.put("status", "inactive"); //active, inactive
 
       Future<JsonObject> future = mongoDAO.update(Collections.User, query, replaceJson);
 

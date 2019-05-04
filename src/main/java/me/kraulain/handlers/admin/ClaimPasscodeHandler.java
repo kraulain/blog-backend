@@ -28,12 +28,14 @@ public class ClaimPasscodeHandler implements Handler<RoutingContext> {
 
     @Override
     public void handle(RoutingContext routingContext) {
-      LOGGER.debug("get a "+ Collections.Passcode+" {}",
+      LOGGER.debug("get a "+ Collections.PassCode+" {}",
         routingContext.request()
           .absoluteURI());
 
-      JsonObject passcodeQuery = routingContext.getBodyAsJson();
-      Future<JsonObject> future = mongoDAO.retrieveOne(Collections.Passcode, passcodeQuery);
+      String passCodeParam = routingContext.request().getParam("passCode");
+      JsonObject passCodeQuery = new JsonObject().put("passCode", passCodeParam);
+
+      Future<JsonObject> future = mongoDAO.retrieveOne(Collections.PassCode, passCodeQuery);
 
       JsonObject response = new JsonObject();
       routingContext.response()
@@ -42,23 +44,19 @@ public class ClaimPasscodeHandler implements Handler<RoutingContext> {
       future.setHandler(result -> {
         if(future.succeeded()){
 
-          JsonObject passcode = future.result();
-          passcode.put("status", "claimed"); // claimed, unclaimed
-          mongoDAO.delete(Collections.Passcode, passcodeQuery);
+          JsonObject passCode = future.result();
+          passCode.put("status", "claimed"); // claimed, unclaimed
+          mongoDAO.delete(Collections.PassCode, passCodeQuery);
 
           JsonObject claims = new JsonObject()
-            .put("phoneNumber", passcode.getString("phoneNumber"))
-            .put("role", passcode.getString("role"));
+            .put("phoneNumber", passCode.getString("phoneNumber"))
+            .put("role", "admin");
 
           String token = provider.generateToken(claims, new JWTOptions().setAlgorithm("ES256"));
 
-          response.put("success", "User logged in succesfully");
+          response.put("success", "Admin logged in succesfully");
           routingContext.response().headers().add("Authorization", "Bearer " + token);
-          if(passcode.getString("role").equals("client")){
-            routingContext.response().headers().add("Location", "https://www.itsparkles.com/dashboard");
-          } else {
-            routingContext.response().headers().add("Location", "https://admin.itsparkles.com/dashboard");
-          }
+          routingContext.response().headers().add("Location", "https://admin.kraulain.me/dashboard");
           routingContext.response().setStatusCode(HttpURLConnection.HTTP_OK);
 
         }else {

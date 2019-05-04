@@ -57,16 +57,16 @@ public class MainVerticle extends AbstractVerticle {
     JWTAuthOptions config = new JWTAuthOptions()
       .setKeyStore(new KeyStoreOptions()
         .setType("jks")
-        .setPath("kraulain.jks")
-        .setPassword("kraulain"));
+        .setPath("kraulain-me.jks")
+        .setPassword("kraulain-me"));
 
     provider = JWTAuth.create(vertx, config);
 
     HttpServerOptions serverOptions = new HttpServerOptions()
       .setSsl(true)
       .setKeyStoreOptions(new JksOptions()
-        .setPath("kraulain.jks")
-        .setPassword("kraulain"));
+        .setPath("kraulain-me.jks")
+        .setPassword("kraulain-me"));
 
 
     HttpServer server = vertx.createHttpServer(serverOptions);
@@ -128,8 +128,8 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/login").handler(new LoginHandler(dbClient));
-    router.get("/claimpasscode").handler(new ClaimPasscodeHandler(dbClient, provider));
+    router.get("/login/:phoneNumber").handler(new LoginHandler(dbClient));
+    router.get("/claimpasscode/:passCode").handler(new ClaimPasscodeHandler(dbClient, provider));
 
     return router;
   }
@@ -139,14 +139,14 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetArticlesHandler());
-    router.get("/:id").handler(new GetArticleHandler());
+    router.get("/").handler(new GetArticlesHandler(dbClient));
+    router.get("/:id").handler(new GetArticleHandler(dbClient));
     //post
-    router.post("/").handler(new PostArticleHandler());
+    router.post("/").handler(new PostArticleHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutArticleHandler());
+    router.put("/:id").handler(new PutArticleHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteArticleHandler());
+    router.delete("/:id").handler(new DeleteArticleHandler(dbClient));
 
     return router;
   }
@@ -156,14 +156,14 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetCoursesHandler());
-    router.get("/:id").handler(new GetCourseHandler());
+    router.get("/").handler(new GetCoursesHandler(dbClient));
+    router.get("/:id").handler(new GetCourseHandler(dbClient));
     //post
-    router.post("/").handler(new PostCourseHandler());
+    router.post("/").handler(new PostCourseHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutCourseHandler());
+    router.put("/:id").handler(new PutCourseHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteCourseHandler());
+    router.delete("/:id").handler(new DeleteCourseHandler(dbClient));
 
     return router;
   }
@@ -172,14 +172,14 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/messages' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetMessagesHandler());
-    router.get("/:id").handler(new GetMessageHandler());
+    router.get("/").handler(new GetMessagesHandler(dbClient));
+    router.get("/:id").handler(new GetMessageHandler(dbClient));
     //post
-    router.post("/").handler(new PostMessageHandler());
+    router.post("/").handler(new PostMessageHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutMessageHandler());
+    router.put("/:id").handler(new PutMessageHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteMessageHandler());
+    router.delete("/:id").handler(new DeleteMessageHandler(dbClient));
 
     return router;
   }
@@ -189,14 +189,14 @@ public class MainVerticle extends AbstractVerticle {
 
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetNotificationsHandler());
-    router.get("/:id").handler(new GetNotificationHandler());
+    router.get("/").handler(new GetNotificationsHandler(dbClient));
+    router.get("/:id").handler(new GetNotificationHandler(dbClient));
     //post
-    router.post("/").handler(new PostNotificationHandler());
+    router.post("/").handler(new PostNotificationHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutNotificationHandler());
+    router.put("/:id").handler(new PutNotificationHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteNotificationHandler());
+    router.delete("/:id").handler(new DeleteNotificationHandler(dbClient));
 
     return router;
   }
@@ -205,14 +205,14 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/users' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetUsersHandler());
-    router.get("/:id").handler(new GetUserHandler());
+    router.get("/").handler(new GetUsersHandler(dbClient));
+    router.get("/:id").handler(new GetUserHandler(dbClient));
     //post
-    router.post("/").handler(new PostUserHandler());
+    router.post("/").handler(new PostUserHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutUserHandler());
+    router.put("/:id").handler(new PutUserHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteUserHandler());
+    router.delete("/:id").handler(new DeleteUserHandler(dbClient));
 
     return router;
   }
@@ -221,14 +221,14 @@ public class MainVerticle extends AbstractVerticle {
     LOGGER.debug("Mounting '/visits' endpoint");
     Router router = Router.router(vertx);
     //Get
-    router.get("/").handler(new GetVisitsHandler());
-    router.get("/:id").handler(new GetVisitHandler());
+    router.get("/").handler(new GetVisitsHandler(dbClient));
+    router.get("/:id").handler(new GetVisitHandler(dbClient));
     //post
-    router.post("/").handler(new PostVisitHandler());
+    router.post("/").handler(new PostVisitHandler(dbClient));
     //put
-    router.put("/:id").handler(new PutVisitHandler());
+    router.put("/:id").handler(new PutVisitHandler(dbClient));
     //delete
-    router.delete("/:id").handler(new DeleteVisitHandler());
+    router.delete("/:id").handler(new DeleteVisitHandler(dbClient));
 
     return router;
   }

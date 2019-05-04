@@ -1,6 +1,8 @@
-article = {_id, permalink, title, type, date, body, language, status, comments[]}
+article = {_id, permalink, title, type, date, body, language, status, comments[], tags[]}
 notification = {_id, type, body, date, language, status}
 user = {_id, name, email, avatar, subscriptions}
+admin = {_id, name, phoneNumber}
+course = {_id, permalink, title, articles[], tags[]}
 
-comments = {userId, body, comments[]}
+comment = {userId, body, comments[]}
 

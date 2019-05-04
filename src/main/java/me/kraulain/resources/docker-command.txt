@@ -1,0 +1,1 @@
+docker run -d --name kraulain-me -e MONGO_INITDB_ROOT_USERNAME=kraulain-me-user -e MONGO_INITDB_ROOT_PASSWORD=kraulain-me-password  mongo

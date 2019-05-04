@@ -25,12 +25,14 @@ public class LoginHandler implements Handler<RoutingContext> {
 
   @Override
   public void handle(RoutingContext routingContext) {
-    LOGGER.debug("login a " + Collections.User + " {}",
+    LOGGER.debug("login a " + Collections.Admin + " {}",
       routingContext.request()
         .absoluteURI());
 
-    JsonObject query = routingContext.getBodyAsJson();
-    Future<JsonObject> future = mongoDAO.retrieveOne(Collections.User, query);
+    String phoneNumber = routingContext.request().getParam("phoneNumber");
+    JsonObject query = new JsonObject().put("phoneNumber", phoneNumber);
+
+    Future<JsonObject> future = mongoDAO.retrieveOne(Collections.Admin, query);
 
     JsonObject response = new JsonObject();
     routingContext.response()
@@ -39,39 +41,30 @@ public class LoginHandler implements Handler<RoutingContext> {
     future.setHandler(result -> {
       if (future.succeeded()) {
         String passcode = generatePasscode(4);
-        JsonObject user = future.result();
+        JsonObject admin = future.result();
 
         JsonObject authClaim = new JsonObject()
-          .put("phoneNumber", user.getString("phoneNumber"))
+          .put("phoneNumber", admin.getString("phoneNumber"))
           .put("passcode", passcode)
-          .put("role", user.getString("role")) //staff, client, admin
           .put("status", "unclaimed"); // unclaimed, claimed
 
-        mongoDAO.save(Collections.Passcode, authClaim);
+        mongoDAO.save(Collections.PassCode, authClaim);
 
-        JsonObject smsRequest = new JsonObject()
+        JsonObject notification = new JsonObject()
           .put("type", "sms")
           .put("title", "Login")
-          .put("status", "new")
-          .put("phoneNumber", user.getString("phoneNumber")); // new, sent, failed, archived
+          .put("status", "new") // new, sent, failed, archived
+          .put("phoneNumber", admin.getString("phoneNumber"))
+          .put("body", "Dear " + admin.getString("name") + ",\nYour kraulain.me Login Pass Code is: " + passcode);
 
-        if(user.getString("language").equals("en")){
-          smsRequest.put("body", "Dear " + user.getString("name") + ", Your ITSparkles Login Pass Code is: " + passcode);
-        } else if(user.getString("language").equals("fr")) {
-          smsRequest.put("body", "Cher " + user.getString("name") + ", Votre Code D'access ITSparkles et le: " + passcode);
-        } else {
-          response.put("error", "Unsupported language");
-          routingContext.response().setStatusCode(HttpURLConnection.HTTP_UNSUPPORTED_TYPE);
-        }
-
-        mongoDAO.save(Collections.Notification, smsRequest);
+        mongoDAO.save(Collections.Notification, notification);
 
         response.put("success", "Awaiting pass code validation");
         routingContext.response().setStatusCode(HttpURLConnection.HTTP_MOVED_TEMP);
-        routingContext.response().headers().add("Location", "https://www.itsparkles.com/passcode");
+        routingContext.response().headers().add("Location", "https://admin.kraulain.me/passcode");
 
       } else {
-        response.put("error", Collections.User + " Not Found");
+        response.put("error", Collections.Admin + " Not Found");
         routingContext.response().setStatusCode(HttpURLConnection.HTTP_NOT_FOUND);
       }
 
