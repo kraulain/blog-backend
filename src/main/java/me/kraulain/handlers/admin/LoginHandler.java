@@ -39,13 +39,13 @@ public class LoginHandler implements Handler<RoutingContext> {
       .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON);
 
     future.setHandler(result -> {
-      if (future.succeeded()) {
-        String passcode = generatePasscode(4);
+      if (future.succeeded() && !future.result().isEmpty()) {
+        String passCode = generatePasscode(4);
         JsonObject admin = future.result();
 
         JsonObject authClaim = new JsonObject()
           .put("phoneNumber", admin.getString("phoneNumber"))
-          .put("passcode", passcode)
+          .put("passCode", passCode)
           .put("status", "unclaimed"); // unclaimed, claimed
 
         mongoDAO.save(Collections.PassCode, authClaim);
@@ -55,13 +55,13 @@ public class LoginHandler implements Handler<RoutingContext> {
           .put("title", "Login")
           .put("status", "new") // new, sent, failed, archived
           .put("phoneNumber", admin.getString("phoneNumber"))
-          .put("body", "Dear " + admin.getString("name") + ",\nYour kraulain.me Login Pass Code is: " + passcode);
+          .put("body", "Dear " + admin.getString("name") + ",\nYour kraulain.me Login Pass Code is: " + passCode);
 
         mongoDAO.save(Collections.Notification, notification);
 
         response.put("success", "Awaiting pass code validation");
         routingContext.response().setStatusCode(HttpURLConnection.HTTP_MOVED_TEMP);
-        routingContext.response().headers().add("Location", "https://admin.kraulain.me/passcode");
+        routingContext.response().headers().add("Location", "https://admin.kraulain.me/passCode");
 
       } else {
         response.put("error", Collections.Admin + " Not Found");

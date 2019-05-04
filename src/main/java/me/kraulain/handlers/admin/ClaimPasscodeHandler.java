@@ -42,7 +42,7 @@ public class ClaimPasscodeHandler implements Handler<RoutingContext> {
         .putHeader(HttpHeaders.CONTENT_TYPE, MediaTypes.APPLICATION_JSON);
 
       future.setHandler(result -> {
-        if(future.succeeded()){
+        if(future.succeeded() && !future.result().isEmpty()){
 
           JsonObject passCode = future.result();
           passCode.put("status", "claimed"); // claimed, unclaimed
